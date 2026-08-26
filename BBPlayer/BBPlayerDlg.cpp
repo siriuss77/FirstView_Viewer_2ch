@@ -46,12 +46,12 @@
 #define new DEBUG_NEW
 #endif
 
-#define SEEK_ZOOM_DO_NOT_USE		0 //capture½Ã memory Leak ¹ß»ı //20120523 DShowLibrary.lib patch
+#define SEEK_ZOOM_DO_NOT_USE		0 //captureì‹œ memory Leak ë°œìƒ //20120523 DShowLibrary.lib patch
 
 #define DEF_SEL_DRIVE_DLG_USE		0
 
-#define IsSHIFTpressed() ( (GetKeyState(VK_SHIFT) & (1 << (sizeof(SHORT)*8-1))) != 0   )//jun 191023 ¸ÖÆ¼Ã¼Å©
-#define IsCTRLpressed()  ( (GetKeyState(VK_CONTROL) & (1 << (sizeof(SHORT)*8-1))) != 0 )//jun 191023 ¸ÖÆ¼Ã¼Å©
+#define IsSHIFTpressed() ( (GetKeyState(VK_SHIFT) & (1 << (sizeof(SHORT)*8-1))) != 0   )//jun 191023 ë©€í‹°ì²´í¬
+#define IsCTRLpressed()  ( (GetKeyState(VK_CONTROL) & (1 << (sizeof(SHORT)*8-1))) != 0 )//jun 191023 ë©€í‹°ì²´í¬
 
 #ifdef TIME_SEARCH_USE
 // definitions
@@ -435,8 +435,8 @@ BOOL CBBPlayerDlg::OpenFile( CString strFilename, DWORD init_indexno)
 	if(m_pTextDataThread)
   			m_pTextDataThread->PostThreadMessage(THREAD_MSG_RUN, 0, 0);
 
- #if 0 // Á¦°Å : Text data threadd¿¡¼­ Ã³¸®
- //20190716  : UI Àç»ı½Ã°£°ú ¿µ»óÀÇ Å¸ÀÓ½ºÅÛÇÁ µ¿±â¸¦ À§ÇØ Ãß°¡µÈ ÄÚµå
+ #if 0 // ì œê±° : Text data threaddì—ì„œ ì²˜ë¦¬
+ //20190716  : UI ì¬ìƒì‹œê°„ê³¼ ì˜ìƒì˜ íƒ€ì„ìŠ¤í…œí”„ ë™ê¸°ë¥¼ ìœ„í•´ ì¶”ê°€ëœ ì½”ë“œ
  	ClListCtrl* pFileList = LST_GET( TEXT("main.listbox.filelist") );
 	if(pFileList && CBBoxUtil::GetEventType(pFileList->GetItemText(m_nCurPlayIndex, 1)) == CBBoxUtil::BB_EVENT_GSENSOR ) {
 		HRESULT hr = 0;
@@ -783,7 +783,7 @@ BOOL CBBPlayerDlg::OpenDirectory( CString cstrDir , BOOL bSubFolderSearch )
 					}
 					continue;
 				}
-	// Ãß°¡ÀÌº¥Æ®Ç×¸ñ Event teb¿¡ Ç¥½Ã jun 201021 			
+	// ì¶”ê°€ì´ë²¤íŠ¸í•­ëª© Event tebì— í‘œì‹œ jun 201021 			
 				if(*(wtsFilter.c_str()) != TEXT('*') && cstrFileName.Find(wtsFilter.c_str()) == -1 && \
 					(this->m_pUIControl->GetListTabPrevEvent() == CBBPlayerUIControl::EVENT_LIST_EVENT && CBBoxUtil::GetEventType(findData.cFileName) != CBBoxUtil::BB_EVENT_GSENSOR) )
 					continue;
@@ -835,10 +835,11 @@ BOOL CBBPlayerDlg::FileAddToFileList(CString cstrDir, WIN32_FIND_DATA *pFindData
 	CString cstrText;
 	SYSTEMTIME stUTC, stLocal;
 	
-	//ºĞ¸®µÈ Ã¤³Î Ãß°¡ ¾ÈµÇµµ·Ï
+	//ë¶„ë¦¬ëœ ì±„ë„ ì¶”ê°€ ì•ˆë˜ë„ë¡
 	CString cstrFile(pFindData->cFileName);
 	//if(cstrFile.Find(TEXT("_front.")) >= 0 || cstrFile.Find(TEXT("_rear.")) >= 0)
-	  if(cstrFile.Find(TEXT("_F.")) >= 0 || cstrFile.Find(TEXT("_R.")) >= 0)
+	//if(cstrFile.Find(TEXT("_F.")) >= 0 || cstrFile.Find(TEXT("_R.")) >= 0)
+	  if(cstrFile.Find(TEXT("_F.")) >= 0 || cstrFile.Find(TEXT("_R.")) >= 0 || cstrFile.Find(TEXT("_1.")) >= 0 || cstrFile.Find(TEXT("_2.")) >= 0 || cstrFile.Find(TEXT("_3.")) >= 0)
 		return FALSE;
 	
 	//tony, for sort	
@@ -862,9 +863,9 @@ BOOL CBBPlayerDlg::FileAddToFileList(CString cstrDir, WIN32_FIND_DATA *pFindData
 		stLocal.wMinute = ((pFindData->cFileName[11] - L'0') * 10) + pFindData->cFileName[12] - L'0';
 		stLocal.wSecond = ((pFindData->cFileName[13] - L'0') * 10) + pFindData->cFileName[14] - L'0';
 
-		//Merge µÈ ÆÄÀÏÀº Ãß°¡ ¾ÈµÇµµ·Ï
-		if(pFindData->cFileName[18] ==  L'-' && pFindData->cFileName[19 + 8] == L'_' && pFindData->cFileName[19 + 15] == L'_')
-			return FALSE;
+		//Merge ëœ íŒŒì¼ì€ ì¶”ê°€ ì•ˆë˜ë„ë¡
+	//	if(pFindData->cFileName[18] ==  L'-' && pFindData->cFileName[19 + 8] == L'_' && pFindData->cFileName[19 + 15] == L'_')
+	//		return FALSE;
 		
 	}
 	else if(pFindData->cFileName[3] == L'_' && pFindData->cFileName[10] == L'_') //avic file
@@ -902,7 +903,7 @@ BOOL CBBPlayerDlg::FileAddToFileList(CString cstrDir, WIN32_FIND_DATA *pFindData
 	
 	pFileList->InsertItem( nItemCount, cstrText );
 
-	//20170523 tony, for sort ±âÁ¸¿¡´Â ³ìÈ­½Ã°£À¸·Î ÀúÀåÇÏ¿´À¸³ª µ¿ÀÏÇÑ ³ìÈ­½Ã°£ÀÇ ÆÄÀÏ¿¡¼± ½îÆÃÀÌ ¾ÈµÇ´Â ¹®Á¦°¡ ÀÖ¾î ÀÏ·±¹øÈ£·Î º¯°æ
+	//20170523 tony, for sort ê¸°ì¡´ì—ëŠ” ë…¹í™”ì‹œê°„ìœ¼ë¡œ ì €ì¥í•˜ì˜€ìœ¼ë‚˜ ë™ì¼í•œ ë…¹í™”ì‹œê°„ì˜ íŒŒì¼ì—ì„  ì˜íŒ…ì´ ì•ˆë˜ëŠ” ë¬¸ì œê°€ ìˆì–´ ì¼ëŸ°ë²ˆí˜¸ë¡œ ë³€ê²½
 	pFileList->SetItemData(nItemCount , nItemCount);
 
 #if 0
@@ -929,7 +930,7 @@ BOOL CBBPlayerDlg::FileAddToFileList(CString cstrDir, WIN32_FIND_DATA *pFindData
 	cstrText.Insert(0, cstrText.GetBuffer()[16]);
 	pFileList->SetItemText( nItemCount, 4, cstrText);
 
-	if(stLocal.wYear < 1970)   // jun 190926 1970³â ÀÌÀü ¿¬µµ¿¡·¯ ¼öÁ¤
+	if(stLocal.wYear < 1970)   // jun 190926 1970ë…„ ì´ì „ ì—°ë„ì—ëŸ¬ ìˆ˜ì •
 	   stLocal.wYear = 1970;   // jun 190926
 	//20170523 : str_date
 	CTime time = CTime(stLocal);
@@ -966,7 +967,7 @@ VOID CBBPlayerDlg::StopMedia( VOID )
 //			m_pGSensorView->ShowWindow(SW_HIDE);
 
 		this->m_pUIControl->SendUIEvent( CBBPlayerUIControl::EVENT_MEDIA_STOPPED );
-		// Video °¡ UI ¿µ¿ª¿¡ DisplayµÇ´Â ¹®Á¦·Î ÀÓ½Ã·Î Ãß°¡
+		// Video ê°€ UI ì˜ì—­ì— Displayë˜ëŠ” ë¬¸ì œë¡œ ì„ì‹œë¡œ ì¶”ê°€
 		//this->InvalidateRect( NULL );
 	}
 #ifdef TIME_SEARCH_USE
@@ -1036,7 +1037,7 @@ BOOL CBBPlayerDlg::StartPlay(void)
 	//if(pVideoFront)	pVideoFront->ShowWindow( SW_HIDE );
 	//if(pVideoRear)	pVideoRear->ShowWindow( SW_HIDE );
 	
-	// Video °¡ UI ¿µ¿ª¿¡ DisplayµÇ´Â ¹®Á¦·Î ÀÓ½Ã·Î Ãß°¡
+	// Video ê°€ UI ì˜ì—­ì— Displayë˜ëŠ” ë¬¸ì œë¡œ ì„ì‹œë¡œ ì¶”ê°€
 #if 0//BUILD_MODEL == MODEL_RALLY_EYES
   #if 0
 	CRect rect;
@@ -1058,7 +1059,7 @@ BOOL CBBPlayerDlg::StartPlay(void)
 	m_multiPlayer.StreamPlay();
 	SetTimer( MAINDLG_TID_PROGRESS, MAINDLG_TMDUR_PROGRESS, NULL );
 		
-#if 0// (BUILD_MODEL != MODEL_RALLY_EYES)     //jun 200729 ¹İÀü±â´É»èÁ¦
+#if 0// (BUILD_MODEL != MODEL_RALLY_EYES)     //jun 200729 ë°˜ì „ê¸°ëŠ¥ì‚­ì œ
 	m_multiPlayer.SetFlip(MP_VIDEO_CH_1, m_bFrontFlip);
 	m_multiPlayer.SetMirror(MP_VIDEO_CH_1, m_bFrontMirror);
 	m_multiPlayer.SetFlip(MP_VIDEO_CH_2, m_bRearFlip);
@@ -1131,7 +1132,7 @@ BOOL CBBPlayerDlg::PlayerFileListIndex(INT index)
 	}
 	else
 	{
-		// Video °¡ UI ¿µ¿ª¿¡ DisplayµÇ´Â ¹®Á¦·Î ÀÓ½Ã·Î Ãß°¡
+		// Video ê°€ UI ì˜ì—­ì— Displayë˜ëŠ” ë¬¸ì œë¡œ ì„ì‹œë¡œ ì¶”ê°€
 		//this->InvalidateRect( NULL );
 	}
 
@@ -1160,7 +1161,7 @@ UINT CBBPlayerDlg::FileSaveThreadWork(LPVOID pParam)
 	{
 		bFileSaveOk = pInst->m_fileManager.fileSeparate(pInst->m_cstrSaveCurrentFileName, pInst->m_cstrSaveFileExt, pInst->m_bIsRemovalNxfs);
 
-#ifdef REAR_CAM_OFF //¿øº»ÆÄÀÏ »èÁ¦   jun 170406
+#ifdef REAR_CAM_OFF //ì›ë³¸íŒŒì¼ ì‚­ì œ   jun 170406
 		if(pInst->m_bIsRemovalNxfs && bFileSaveOk){
 			CFile::Remove(pInst->m_cstrSaveCurrentFileName.GetBuffer());
 		}
@@ -1286,7 +1287,7 @@ BOOL CBBPlayerDlg::OnInitDialog( VOID )
 		ASSERT(FALSE);    // Failed to get desktop location
 	}
 
-	// UAC¿¡¼­ °ü¸®ÀÚ ±ÇÇÑÀ¸·Î ½ÇÇàÇÒ °æ¿ì ¾Æ·¡ ³»¿ëÀÌ ÀÖ¾î¾ß ÇÔ.
+	// UACì—ì„œ ê´€ë¦¬ì ê¶Œí•œìœ¼ë¡œ ì‹¤í–‰í•  ê²½ìš° ì•„ë˜ ë‚´ìš©ì´ ìˆì–´ì•¼ í•¨.
 	ChangeWindowMessageFilter(0x0049, MSGFLT_ADD);
 	ChangeWindowMessageFilter(WM_DROPFILES, MSGFLT_ADD);
 	DragAcceptFiles(TRUE);
@@ -1500,7 +1501,7 @@ void CBBPlayerDlg::OnPaint( VOID )
 		if( m_multiPlayer.GetState() == STATE_RUNNING)	
 			m_multiPlayer.OnDraw(&dc);
 		//else											
-			//m_multiPlayer.OnSize();   //20200729 zoom On/Off ÇÁ·¹ÀÓ ÀÌµ¿ ¹®Á¦°¡ ÀÖ¾î »èÁ¦
+			//m_multiPlayer.OnSize();   //20200729 zoom On/Off í”„ë ˆì„ ì´ë™ ë¬¸ì œê°€ ìˆì–´ ì‚­ì œ
 
 		m_multiPlayer.UpdateWindow();
 		//ClDialog::OnPaint();
@@ -1594,12 +1595,12 @@ void CBBPlayerDlg::OnDropFiles(HDROP hDropInfo)
 	if(pFileList == NULL)
 		return;
 	
-	// µå·ÓµÈ ÆÄÀÏÀÇ °¹¼ö
+	// ë“œë¡­ëœ íŒŒì¼ì˜ ê°¯ìˆ˜
 	nFiles = DragQueryFile(hDropInfo, 0xFFFFFFFF, szPathName, MAX_PATH);
 
     for(int i = 0; i < nFiles; ++i)
     {
-		DragQueryFile(hDropInfo, i, szPathName, MAX_PATH);     // ÆÄÀÏÀÇ °æ·Î ¾ò¾î¿È
+		DragQueryFile(hDropInfo, i, szPathName, MAX_PATH);     // íŒŒì¼ì˜ ê²½ë¡œ ì–»ì–´ì˜´
 
 		CString str(szPathName) ;
        	
@@ -1752,7 +1753,7 @@ void CBBPlayerDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 	if(pTextLongitude)
 		pTextLongitude->GetWindowRect(lonRect);
 
-	// Hidden Log¹öÆ°
+	// Hidden Logë²„íŠ¼
 	if(pButtonLog){
 		pButtonLog->GetWindowRect(LogButtonRect);
 		if( LogButtonRect.PtInRect(abs_point)){
@@ -1884,7 +1885,7 @@ LRESULT CBBPlayerDlg::OnAddFileFromArguments( WPARAM wParam, LPARAM lParam )
 				int count;
 				BOOL add = TRUE;
 
-				// ÆÄÀÏ Áßº¹ °Ë»ç
+				// íŒŒì¼ ì¤‘ë³µ ê²€ì‚¬
 				for( count = 0; count < pFileList->GetItemCount(); count++)
 				{
 					CString strItem3 = pFileList->GetItemText(count, 3); // full path
@@ -2106,12 +2107,12 @@ void CBBPlayerDlg::OnClickCapture( VOID )
 			csFileName.Append(TEXT(".jpg"));
 			CFileDialog dlg(false, NULL, csFileName, OFN_OVERWRITEPROMPT, TEXT("jpeg file (*.jpg)|*.jpg||"), this);
 
-			dlg.m_ofn.lpstrInitialDir = m_cstrJpgSavePath.GetBuffer(); // ¿ÀÇÂÇÒ¶§ ÃÊ±â °æ·Î ÁöÁ¤
+			dlg.m_ofn.lpstrInitialDir = m_cstrJpgSavePath.GetBuffer(); // ì˜¤í”ˆí• ë•Œ ì´ˆê¸° ê²½ë¡œ ì§€ì •
 
 			if ( dlg.DoModal() == IDOK)
 			{
 				CString strExtention = dlg.GetFileExt();
-				CString strPath;// = dlg.GetFolderPath(); // GetFolderPath function windows xp os error ¹ß»ıÇÔ
+				CString strPath;// = dlg.GetFolderPath(); // GetFolderPath function windows xp os error ë°œìƒí•¨
 
 				std::wstring wtsPath = ClUtil::PATH::getPathSpecW( dlg.GetPathName().GetBuffer());
 				m_cstrJpgSavePath.Format(TEXT("%s\\"), wtsPath.c_str());
@@ -2289,7 +2290,7 @@ void CBBPlayerDlg::OnClickMaximize( VOID )
 		ShowWindowTimeSearch(SW_HIDE);
 #endif	
 
-		// No 78 ºä¾î ÈÄ¹æ È­¸é È®´ë ÈÄ ÃÖ´ëÈ­ ½Ã È­¸é °ãÄ¡´Â ¹®Á¦ ¼öÁ¤
+		// No 78 ë·°ì–´ í›„ë°© í™”ë©´ í™•ëŒ€ í›„ ìµœëŒ€í™” ì‹œ í™”ë©´ ê²¹ì¹˜ëŠ” ë¬¸ì œ ìˆ˜ì •
 		if(this->m_pUIControl->m_ActiveFront <= CBBPlayerUIControl::ITEM_REAR_VIDEO)
 			this->m_pUIControl->m_MaxScreenActive = this->m_pUIControl->m_ActiveFront;
 		else
@@ -2592,8 +2593,8 @@ void CBBPlayerDlg::OnClickOpen( VOID )
 	if( nPlayState == PLAY_STATE_RUNNING || nPlayState == PLAY_STATE_PAUSED)
 		this->PostMessage( WM_USER_MEDIAFORCESTOP );
 	
-	ITEMIDLIST *pidlBrowse; // ±¸Á¶Ã¼ ÃÊ±âÈ­
-	WCHAR pszPathname[512];  // °æ·Î ÀúÀåÀ» À§ÇÑ º¯¼ö
+	ITEMIDLIST *pidlBrowse; // êµ¬ì¡°ì²´ ì´ˆê¸°í™”
+	WCHAR pszPathname[512];  // ê²½ë¡œ ì €ì¥ì„ ìœ„í•œ ë³€ìˆ˜
 	BROWSEINFO BrInfo; 
     	static bool isDirSelected = false;
 		
@@ -2722,7 +2723,7 @@ void CBBPlayerDlg::OnClickSave( VOID )
 
 				dlg.DoModal();
 
-				//ch ºĞ¸®
+				//ch ë¶„ë¦¬
 				if(m_nStreamCount >= 2){
 					std::wstring wtsFileName = ClUtil::PATH::getFileNameSpecW( cstrSourceFile);
 				    CString cstrNewFileName = wtsFileName.c_str();
@@ -2763,7 +2764,7 @@ void CBBPlayerDlg::OnClickSave( VOID )
 			cstrFilter.Format( TEXT("video(*.%s)|*.%s||"), cstrExtension, cstrExtension );
 			CFileDialog saveDlg( FALSE, NULL, cstrNewFileName, OFN_OVERWRITEPROMPT|OFN_ENABLESIZING, cstrFilter, NULL );
 
-			saveDlg.m_ofn.lpstrInitialDir = m_cstrMp4SavePath.GetBuffer(); // ¿ÀÇÂÇÒ¶§ ÃÊ±â °æ·Î ÁöÁ¤
+			saveDlg.m_ofn.lpstrInitialDir = m_cstrMp4SavePath.GetBuffer(); // ì˜¤í”ˆí• ë•Œ ì´ˆê¸° ê²½ë¡œ ì§€ì •
 			
 			if( saveDlg.DoModal() == IDOK )
 			{
@@ -2805,6 +2806,8 @@ void CBBPlayerDlg::OnClickSaveAll( VOID )
 	}
 
 	this->OnClickStop();
+	// jun 260826 ë¨¸ì§€ ì „ ì›ë³¸ íŒŒì¼ ì ê¸ˆ í•´ì œ (ë³µí˜¸í™” ë° ë¨¸ì§€ íŒŒì¼ ì½ê¸° ì‹¤íŒ¨ ë°©ì§€)
+	this->m_multiPlayer.CloseFile();
 
 	CString strFolder;
 	CString strSaveDirTitle;
@@ -3027,7 +3030,7 @@ void CBBPlayerDlg::OnBnClickZoom()
 		return;
 
 	if(pBtnZoom->GetCheckState() == FALSE){
-		//this->m_multiPlayer.SetPosition(this->m_multiPlayer.GetCurrentPosition()); //20200729 zoom On/Off ÇÁ·¹ÀÓ ÀÌµ¿ ¹®Á¦°¡ ÀÖ¾î »èÁ¦
+		//this->m_multiPlayer.SetPosition(this->m_multiPlayer.GetCurrentPosition()); //20200729 zoom On/Off í”„ë ˆì„ ì´ë™ ë¬¸ì œê°€ ìˆì–´ ì‚­ì œ
 	}
 	else
 		this->OnDrawZoomImage();
@@ -3239,7 +3242,7 @@ void CBBPlayerDlg::OnBnClickedMainBtnSpeed()
 	SetUnitOfSpeed(m_eUnitOfSpeed, TRUE);
 #else //20170226 PulseSpeedUse
 	static DWORD count;
-	if(count++ % 2){ // ?? µÎ¹ø È£Ãâ µÇ¾î ÀÓ½Ã·Î ³Ö¾ú½À´Ï´Ù.
+	if(count++ % 2){ // ?? ë‘ë²ˆ í˜¸ì¶œ ë˜ì–´ ì„ì‹œë¡œ ë„£ì—ˆìŠµë‹ˆë‹¤.
 		if( this->m_textData.m_bPulseSpeedUse ) {
 			this->m_textData.m_bPulseSpeedUse = FALSE;
 		}
@@ -3261,7 +3264,7 @@ void CBBPlayerDlg::OnNMClickMainFilelist(NMHDR *pNMHDR, LRESULT *pResult)
 
 	ClListCtrl* pFileList = LST_GET( TEXT("main.listbox.filelist") );
 
-	//DEBUGMSG(1, ("IsSHIFTpressed %d\r\n", IsSHIFTpressed()));  //jun 191023 ¸ÖÆ¼Ã¼Å©
+	//DEBUGMSG(1, ("IsSHIFTpressed %d\r\n", IsSHIFTpressed()));  //jun 191023 ë©€í‹°ì²´í¬
 	
 #ifdef TIME_SEARCH_USE
 	if(pFileList &&  pNMItemActivate->iItem < pFileList->GetItemCount() && pNMItemActivate->iItem >= 0)
@@ -3273,7 +3276,7 @@ void CBBPlayerDlg::OnNMClickMainFilelist(NMHDR *pNMHDR, LRESULT *pResult)
 	if(pFileList && pNMItemActivate->iSubItem == 0 && pNMItemActivate->iItem >= 0){
 		int seq = pNMItemActivate->iItem;
 
-//jun 191023 ¸ÖÆ¼Ã¼Å©
+//jun 191023 ë©€í‹°ì²´í¬
 		if(IsSHIFTpressed() && pFileList->m_nStartItemNo != -1) {
 			if(pFileList->m_nStartItemNo > seq){
 				for(int i = seq; i <= pFileList->m_nStartItemNo; i++)
@@ -4136,7 +4139,7 @@ UINT CBBPlayerDlg::ThreadTextDataProc(void* pArg)
 											iGSensor = pDlg->m_textData.m_GSensorList.begin();
 
 ////{++ ************************************************************
-//20190716  : UI Àç»ı½Ã°£°ú ¿µ»óÀÇ Å¸ÀÓ½ºÅÛÇÁ µ¿±â¸¦ À§ÇØ Ãß°¡µÈ ÄÚµå
+//20190716  : UI ì¬ìƒì‹œê°„ê³¼ ì˜ìƒì˜ íƒ€ì„ìŠ¤í…œí”„ ë™ê¸°ë¥¼ ìœ„í•´ ì¶”ê°€ëœ ì½”ë“œ
 											ClListCtrl* pFileList = (ClListCtrl*)pDlg->m_pDialogManager->GetControl(TEXT("main.listbox.filelist"));		//LST_GET( TEXT("main.listbox.filelist") );
 											if(pFileList){
 											    struct tm dt;

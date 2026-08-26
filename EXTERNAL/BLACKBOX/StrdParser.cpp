@@ -1233,17 +1233,35 @@ HRESULT CStrdParser::GetTextData(char *filepath, byte_t *chunk_data, int *pSize,
 			buf[len++] = (tick % 100);
 			*/
 
-			if(m_start_time == 0) 
-				m_start_time = get_time_from_gsensor_data(chunk_data, read_size);
-			else
-				time = get_time_from_gsensor_data(chunk_data, read_size) - m_start_time;
+			//=================================================================================
+			// [20260825 - MULTI-FILE MERGE SENSOR SYNC FIX : 2CH/3CH COMMON]
+			// 다중/비연속 파일 머지 시 센서 데이터(CTS) 연속 동기화 보정 코드
+			//=================================================================================
+			UINT64 cur_data_time = get_time_from_gsensor_data(chunk_data, read_size);
 
-			if(time > m_cts)
-				m_cts = time;
-			else if(time < 0)
-		//            return ERROR_HANDLE_EOF; //20211019 G센서 값이 아닌데 'M'으로 시작하는 Data가 있을 경우 오류 발생
-				m_start_time = get_time_from_gsensor_data(chunk_data, read_size);
+			if(m_start_time == 0) 
+			{
+				m_start_time = cur_data_time;
+				m_cts = 0;
+			}
+			else
+			{
+				INT64 time_diff = (INT64)(cur_data_time - m_start_time);
 			
+				// 연속 주행(시간 차이가 0 ~ 2초 이내)인 경우: 실제 경과 시간 반영
+				// 비연속 파일(중간에 시간이 2초 이상 껑충 뛴 경우): 비디오 시간에 맞게 이전 마지막 시간 바로 뒤로 누적 연결!
+				if (time_diff > 0 && (time_diff - (INT64)m_cts) <= 2000)
+				{
+					m_cts = (unsigned long)time_diff;
+				}
+				else if (time_diff <= 0 || (time_diff - (INT64)m_cts) > 2000)
+				{
+					// 새로운 파일(또는 비연속 구간) 시작 시 이전 재생 시점 뒤로 연속 누적
+					m_start_time = cur_data_time - (m_cts + 100);
+					m_cts += 100;
+				}
+			}
+			//=================================================================================
 			
 			//printf ("cts = %d\r\n", m_cts);
 		}

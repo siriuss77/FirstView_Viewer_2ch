@@ -930,78 +930,696 @@ bool CWBCFileManager::__isValidExtension( const CString& cstrFilePath )
 //================================================================================================= E. OPERATION
 //================================================================================================= S. CONTROL
 
+
+/*
+
+
+
+
+// 순수 C++ 초고속 무손실 AVI Merge (3ch 비디오 + 오디오 + GPS/G-Sensor 100% 무손실 결합)
+static bool NativeAviMerge(const std::vector<CString>& srcFiles, const CString& dstFile)
+{
+	if (srcFiles.size() < 2) return false;
+
+	FILE* fpOut = NULL;
+	if (_wfopen_s(&fpOut, dstFile, _T("wb")) != 0 || !fpOut)
+		return false;
+
+	const DWORD BUFFER_SIZE = 1024 * 1024;
+	BYTE* pBuffer = new BYTE[BUFFER_SIZE];
+	if (!pBuffer) { fclose(fpOut); return false; }
+
+	// 1단계: 모든 원본 파일의 strd 센서 데이터 추출 및 통합
+	std::vector<BYTE> mergedStrdData;
+	for (size_t i = 0; i < srcFiles.size(); ++i) {
+		ExtractStrdData(srcFiles[i], mergedStrdData);
+	}
+
+	std::vector<AVI_INDEX_ENTRY> mergedIndex;
+	DWORD dwTotalMoviDataSize = 0;
+	DWORD streamLengths[8] = { 0 }; // 0: 00dc, 1: 01dc, 2: 02dc, 3: 03wb, etc.
+	DWORD dwMainVideoFrames = 0;
+
+	// 2단계: 첫 번째 파일의 헤더 복사 및 새 strd 주입
+	FILE* fpFirst = NULL;
+	if (_wfopen_s(&fpFirst, srcFiles[0], _T("rb")) != 0 || !fpFirst) {
+		delete[] pBuffer; fclose(fpOut); return false;
+	}
+
+	BYTE riffHeader[12];
+	fread(riffHeader, 1, 12, fpFirst);
+	fwrite(riffHeader, 1, 12, fpOut);
+
+	DWORD fourCC = 0, listSize = 0, listType = 0;
+	while (fread(&fourCC, 4, 1, fpFirst) == 1) {
+		fread(&listSize, 4, 1, fpFirst);
+		if (fourCC == 0x5453494C) { // 'LIST'
+			fread(&listType, 4, 1, fpFirst);
+			if (listType == 0x6C726468) { // 'hdrl'
+				fwrite(&fourCC, 4, 1, fpOut);
+				long hdrlSizePos = ftell(fpOut);
+				fwrite(&listSize, 4, 1, fpOut);
+				fwrite(&listType, 4, 1, fpOut);
+
+				long hdrlStartPos = ftell(fpOut);
+				long hdrlEnd = ftell(fpFirst) + (listSize - 4);
+
+				while (ftell(fpFirst) < hdrlEnd) {
+					DWORD subTag = 0, subSize = 0;
+					if (fread(&subTag, 4, 1, fpFirst) != 1) break;
+					if (fread(&subSize, 4, 1, fpFirst) != 1) break;
+
+					if (subTag == 0x5453494C) { // sub-LIST ('strl')
+						DWORD subListType = 0;
+						fread(&subListType, 4, 1, fpFirst);
+						fwrite(&subTag, 4, 1, fpOut);
+						long strlSizePos = ftell(fpOut);
+						fwrite(&subSize, 4, 1, fpOut);
+						fwrite(&subListType, 4, 1, fpOut);
+
+						long strlStartPos = ftell(fpOut);
+						long strlEnd = ftell(fpFirst) + (subSize - 4);
+
+						while (ftell(fpFirst) < strlEnd) {
+							DWORD leafTag = 0, leafSize = 0;
+							if (fread(&leafTag, 4, 1, fpFirst) != 1) break;
+							if (fread(&leafSize, 4, 1, fpFirst) != 1) break;
+
+							if (leafTag == 0x64727473 && !mergedStrdData.empty()) { // 'strd' 교체
+								DWORD newStrdSize = (DWORD)(mergedStrdData.size() + 4);
+								DWORD fcc = 0;
+								fread(&fcc, 4, 1, fpFirst);
+								fseek(fpFirst, leafSize - 4, SEEK_CUR);
+
+								fwrite(&leafTag, 4, 1, fpOut);
+								fwrite(&newStrdSize, 4, 1, fpOut);
+								fwrite(&fcc, 4, 1, fpOut);
+								fwrite(&mergedStrdData[0], 1, mergedStrdData.size(), fpOut);
+							}
+							else {
+								fwrite(&leafTag, 4, 1, fpOut);
+								fwrite(&leafSize, 4, 1, fpOut);
+								DWORD rem = (leafSize + 1) & ~1;
+								while (rem > 0) {
+									DWORD rb = min(rem, BUFFER_SIZE);
+									fread(pBuffer, 1, rb, fpFirst);
+									fwrite(pBuffer, 1, rb, fpOut);
+									rem -= rb;
+								}
+							}
+						}
+
+						// sub-LIST ('strl') 크기 보정
+						long curStrlPos = ftell(fpOut);
+						DWORD actualStrlSize = (DWORD)(curStrlPos - strlStartPos + 4);
+						fseek(fpOut, strlSizePos, SEEK_SET);
+						fwrite(&actualStrlSize, 4, 1, fpOut);
+						fseek(fpOut, curStrlPos, SEEK_SET);
+					}
+					else if (subTag == 0x64727473 && !mergedStrdData.empty()) {
+						DWORD newStrdSize = (DWORD)(mergedStrdData.size() + 4);
+						DWORD fcc = 0;
+						fread(&fcc, 4, 1, fpFirst);
+						fseek(fpFirst, subSize - 4, SEEK_CUR);
+
+						fwrite(&subTag, 4, 1, fpOut);
+						fwrite(&newStrdSize, 4, 1, fpOut);
+						fwrite(&fcc, 4, 1, fpOut);
+						fwrite(&mergedStrdData[0], 1, mergedStrdData.size(), fpOut);
+					}
+					else {
+						fwrite(&subTag, 4, 1, fpOut);
+						fwrite(&subSize, 4, 1, fpOut);
+						DWORD rem = (subSize + 1) & ~1;
+						while (rem > 0) {
+							DWORD rb = min(rem, BUFFER_SIZE);
+							fread(pBuffer, 1, rb, fpFirst);
+							fwrite(pBuffer, 1, rb, fpOut);
+							rem -= rb;
+						}
+					}
+				}
+
+				// hdrl LIST 크기 보정
+				long curHdrlPos = ftell(fpOut);
+				DWORD actualHdrlSize = (DWORD)(curHdrlPos - hdrlStartPos + 4);
+				fseek(fpOut, hdrlSizePos, SEEK_SET);
+				fwrite(&actualHdrlSize, 4, 1, fpOut);
+				fseek(fpOut, curHdrlPos, SEEK_SET);
+				break;
+			}
+		}
+		fseek(fpFirst, listSize, SEEK_CUR);
+	}
+	fclose(fpFirst);
+
+	// 3단계: 'LIST' [moviSize] 'movi' 헤더 위치 기록
+	long moviListHeaderPos = ftell(fpOut);
+	DWORD dwMoviTag = 0x5453494C;
+	DWORD dwMoviDummySize = 0;
+	DWORD dwMoviType = 0x69766F6D;
+	fwrite(&dwMoviTag, 4, 1, fpOut);
+	fwrite(&dwMoviDummySize, 4, 1, fpOut);
+	fwrite(&dwMoviType, 4, 1, fpOut);
+
+	// 4단계: 각 원본 파일의 movi 데이터 복사 및 스트림별 프레임/오디오 독립 카운팅
+	for (size_t i = 0; i < srcFiles.size(); ++i)
+	{
+		FILE* fpIn = NULL;
+		if (_wfopen_s(&fpIn, srcFiles[i], _T("rb")) != 0 || !fpIn)
+			continue;
+
+		DWORD curMoviBaseOffset = dwTotalMoviDataSize + 4; // 'movi' FourCC 다음부터의 오프셋
+		fseek(fpIn, 12, SEEK_SET);
+
+		while (fread(&fourCC, 4, 1, fpIn) == 1)
+		{
+			if (fread(&listSize, 4, 1, fpIn) != 1) break;
+
+			if (fourCC == 0x5453494C) { // 'LIST'
+				fread(&listType, 4, 1, fpIn);
+				if (listType == 0x69766F6D) { // 'movi'
+					DWORD remain = listSize - 4;
+					dwTotalMoviDataSize += remain;
+					while (remain > 0) {
+						DWORD readBytes = min(remain, BUFFER_SIZE);
+						fread(pBuffer, 1, readBytes, fpIn);
+						fwrite(pBuffer, 1, readBytes, fpOut);
+						remain -= readBytes;
+					}
+				}
+				else {
+					fseek(fpIn, listSize - 4, SEEK_CUR);
+				}
+			}
+			else if (fourCC == 0x31786469) { // 'idx1'
+				DWORD entryCount = listSize / sizeof(AVI_INDEX_ENTRY);
+				for (DWORD k = 0; k < entryCount; ++k) {
+					AVI_INDEX_ENTRY entry;
+					if (fread(&entry, sizeof(AVI_INDEX_ENTRY), 1, fpIn) == 1) {
+						entry.dwOffset += (curMoviBaseOffset - 4); // movi 상대 오프셋 정밀 보정
+						mergedIndex.push_back(entry);
+
+						// 스트림 번호 파싱 ('00dc' -> 0, '01dc' -> 1, '02dc' -> 2, '03wb' -> 3)
+						char ch0 = (char)(entry.dwFourCC & 0xFF);
+						char ch1 = (char)((entry.dwFourCC >> 8) & 0xFF);
+						char ch2 = (char)((entry.dwFourCC >> 16) & 0xFF);
+						char ch3 = (char)((entry.dwFourCC >> 24) & 0xFF);
+
+						if (ch0 >= '0' && ch0 <= '7' && ch1 >= '0' && ch1 <= '9') {
+							int streamIdx = (ch0 - '0') * 10 + (ch1 - '0');
+							if (streamIdx < 8) {
+								if (ch2 == 'w' && ch3 == 'b') {
+									// 오디오 스트림: 바이트(또는 샘플) 길이 누적
+									streamLengths[streamIdx] += entry.dwLength;
+								}
+								else {
+									// 비디오 스트림: 프레임 수 누적
+									streamLengths[streamIdx]++;
+									if (streamIdx == 0) {
+										dwMainVideoFrames++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else {
+				fseek(fpIn, listSize, SEEK_CUR);
+			}
+		}
+		fclose(fpIn);
+	}
+
+	// 5단계: 통합 idx1 인덱스 테이블 기록
+	DWORD dwIdx1Tag = 0x31786469;
+	DWORD dwIdx1Size = (DWORD)(mergedIndex.size() * sizeof(AVI_INDEX_ENTRY));
+	fwrite(&dwIdx1Tag, 4, 1, fpOut);
+	fwrite(&dwIdx1Size, 4, 1, fpOut);
+	if (!mergedIndex.empty()) {
+		fwrite(&mergedIndex[0], sizeof(AVI_INDEX_ENTRY), mergedIndex.size(), fpOut);
+	}
+
+	// 6단계: 파일 크기 및 헤더 메타데이터 정밀 갱신
+	long lTotalFileSize = ftell(fpOut);
+
+	// (1) RIFF 전체 크기
+	fseek(fpOut, 4, SEEK_SET);
+	DWORD dwRiffSize = (DWORD)(lTotalFileSize - 8);
+	fwrite(&dwRiffSize, 4, 1, fpOut);
+
+	// (2) avih.dwTotalFrames (메인 비디오 총 프레임 수)
+	// jun 260826 dwMicroSecPerFrame(오프셋 32) 훼손 방지 및 dwTotalFrames(오프셋 48) 정상 기록
+	fseek(fpOut, 48, SEEK_SET);
+	fwrite(&dwMainVideoFrames, 4, 1, fpOut);
+
+	// (3) movi LIST 실제 크기
+	fseek(fpOut, moviListHeaderPos + 4, SEEK_SET);
+	DWORD dwFinalMoviListSize = dwTotalMoviDataSize + 4;
+	fwrite(&dwFinalMoviListSize, 4, 1, fpOut);
+
+	// (4) 각 스트림별 strh.dwLength에 해당 스트림 프레임 길이로 1:1 패치
+	// jun 260826 LIST 4바이트 건너뛰기 추가로 17억 바이트 점프 루프 탈출 버그 수정
+	fseek(fpOut, 12, SEEK_SET);
+	int currentStreamIdx = 0;
+
+	while (ftell(fpOut) < moviListHeaderPos) {
+		DWORD tag = 0, size = 0;
+		if (fread(&tag, 4, 1, fpOut) != 1) break;
+		if (fread(&size, 4, 1, fpOut) != 1) break;
+
+		if (tag == 0x5453494C) { // 'LIST' 태그 내부 진입 (4바이트 listType 건너뜀)
+			DWORD listType = 0;
+			if (fread(&listType, 4, 1, fpOut) != 1) break;
+			continue;
+		}
+
+		if (tag == 0x68727473) { // 'strh' 발견
+			long strhDataStart = ftell(fpOut);
+			if (currentStreamIdx < 8 && streamLengths[currentStreamIdx] > 0) {
+				// strh.dwLength 위치는 strh 본체 시작 기준 32번째 바이트
+				fseek(fpOut, strhDataStart + 32, SEEK_SET);
+				fwrite(&streamLengths[currentStreamIdx], 4, 1, fpOut);
+			}
+			currentStreamIdx++;
+			fseek(fpOut, strhDataStart + ((size + 1) & ~1), SEEK_SET);
+		}
+		else if (tag != 0x46464952) { // 'RIFF' 외 일반 청크는 패딩 정렬 건너뜀
+			fseek(fpOut, (size + 1) & ~1, SEEK_CUR);
+		}
+	}
+
+	delete[] pBuffer;
+	fclose(fpOut);
+	return true;
+}
+
+/*
+bool CWBCFileManager::fileMerge_Legacy_FFmpeg(CString strDestPath, bool is_Nxfs)
+{
+	// Legacy FFmpeg merge code (disabled)
+	return false;
+}
+*/
+
+#pragma pack(push, 1)
+typedef struct {
+	DWORD dwFourCC;
+	DWORD dwFlags;
+	DWORD dwOffset;
+	DWORD dwLength;
+} AVI_INDEX_ENTRY;
+#pragma pack(pop)
+
+// jun 260826 AVI 파일의 FPS (초당 프레임 수) 추출 헬퍼 함수
+static DWORD GetAviFps(const CString& filePath)
+{
+	FILE* fp = NULL;
+	if (_wfopen_s(&fp, filePath, _T("rb")) != 0 || !fp)
+		return 0;
+
+	// AVI Main Header (avih)의 dwMicroSecPerFrame (오프셋 32)
+	fseek(fp, 32, SEEK_SET);
+	DWORD dwMicroSecPerFrame = 0;
+	if (fread(&dwMicroSecPerFrame, 4, 1, fp) != 1 || dwMicroSecPerFrame == 0) {
+		fclose(fp);
+		return 0;
+	}
+
+	fclose(fp);
+	DWORD dwFps = (DWORD)((1000000.0 / (double)dwMicroSecPerFrame) + 0.5);
+	return dwFps;
+}
+
+// 각 원본 파일(또는 LIST 'strl' 내부)을 재귀 탐색하여 strd (센서 데이터)를 100% 추출하는 함수
+static bool ExtractStrdData(const CString& filePath, std::vector<BYTE>& outStrd)
+{
+	FILE* fp = NULL;
+	if (_wfopen_s(&fp, filePath, _T("rb")) != 0 || !fp)
+		return false;
+
+	fseek(fp, 12, SEEK_SET);
+	DWORD tag = 0, size = 0;
+	bool found = false;
+
+	while (fread(&tag, 4, 1, fp) == 1) {
+		if (fread(&size, 4, 1, fp) != 1) break;
+
+		if (tag == 0x5453494C) { // 'LIST'
+			DWORD listType = 0;
+			fread(&listType, 4, 1, fp);
+			if (listType == 0x69766F6D) { // 'movi' 진입 전 헤더 탐색
+				break;
+			}
+		}
+		else if (tag == 0x64727473) { // 'strd' 발견!
+			if (size > 4) {
+				DWORD fcc = 0;
+				fread(&fcc, 4, 1, fp);
+				DWORD actualDataSize = size - 4;
+				size_t oldSize = outStrd.size();
+				outStrd.resize(oldSize + actualDataSize);
+				fread(&outStrd[oldSize], 1, actualDataSize, fp);
+				found = true;
+				break;
+			}
+		}
+		else {
+			fseek(fp, (size + 1) & ~1, SEEK_CUR);
+		}
+	}
+
+	fclose(fp);
+	return found;
+}
+
+// 순수 C++ 초고속 무손실 AVI Merge (3ch 비디오 + 오디오 + GPS/G-Sensor 100% 무손실 결합)
+static bool NativeAviMerge(const std::vector<CString>& srcFiles, const CString& dstFile)
+{
+	if (srcFiles.size() < 2) return false;
+
+	FILE* fpOut = NULL;
+	if (_wfopen_s(&fpOut, dstFile, _T("wb")) != 0 || !fpOut)
+		return false;
+
+	const DWORD BUFFER_SIZE = 1024 * 1024;
+	BYTE* pBuffer = new BYTE[BUFFER_SIZE];
+	if (!pBuffer) { fclose(fpOut); return false; }
+
+	// 1단계: 모든 원본 파일의 strd 센서 데이터 추출 및 통합
+	std::vector<BYTE> mergedStrdData;
+	for (size_t i = 0; i < srcFiles.size(); ++i) {
+		ExtractStrdData(srcFiles[i], mergedStrdData);
+	}
+
+	std::vector<AVI_INDEX_ENTRY> mergedIndex;
+	DWORD dwTotalMoviDataSize = 0;
+	DWORD streamLengths[8] = { 0 }; // 0: 00dc, 1: 01dc, 2: 02dc, 3: 03wb, etc.
+	DWORD dwMainVideoFrames = 0;
+
+	// 2단계: 첫 번째 파일의 헤더 복사 및 새 strd 주입
+	FILE* fpFirst = NULL;
+	if (_wfopen_s(&fpFirst, srcFiles[0], _T("rb")) != 0 || !fpFirst) {
+		delete[] pBuffer; fclose(fpOut); return false;
+	}
+
+	BYTE riffHeader[12];
+	fread(riffHeader, 1, 12, fpFirst);
+	fwrite(riffHeader, 1, 12, fpOut);
+
+	DWORD fourCC = 0, listSize = 0, listType = 0;
+	while (fread(&fourCC, 4, 1, fpFirst) == 1) {
+		fread(&listSize, 4, 1, fpFirst);
+		if (fourCC == 0x5453494C) { // 'LIST'
+			fread(&listType, 4, 1, fpFirst);
+			if (listType == 0x6C726468) { // 'hdrl'
+				fwrite(&fourCC, 4, 1, fpOut);
+				long hdrlSizePos = ftell(fpOut);
+				fwrite(&listSize, 4, 1, fpOut);
+				fwrite(&listType, 4, 1, fpOut);
+
+				long hdrlStartPos = ftell(fpOut);
+				long hdrlEnd = ftell(fpFirst) + (listSize - 4);
+
+				while (ftell(fpFirst) < hdrlEnd) {
+					DWORD subTag = 0, subSize = 0;
+					if (fread(&subTag, 4, 1, fpFirst) != 1) break;
+					if (fread(&subSize, 4, 1, fpFirst) != 1) break;
+
+					if (subTag == 0x5453494C) { // sub-LIST ('strl')
+						DWORD subListType = 0;
+						fread(&subListType, 4, 1, fpFirst);
+						fwrite(&subTag, 4, 1, fpOut);
+						long strlSizePos = ftell(fpOut);
+						fwrite(&subSize, 4, 1, fpOut);
+						fwrite(&subListType, 4, 1, fpOut);
+
+						long strlStartPos = ftell(fpOut);
+						long strlEnd = ftell(fpFirst) + (subSize - 4);
+
+						while (ftell(fpFirst) < strlEnd) {
+							DWORD leafTag = 0, leafSize = 0;
+							if (fread(&leafTag, 4, 1, fpFirst) != 1) break;
+							if (fread(&leafSize, 4, 1, fpFirst) != 1) break;
+
+							if (leafTag == 0x64727473 && !mergedStrdData.empty()) { // 'strd' 교체
+								DWORD newStrdSize = (DWORD)(mergedStrdData.size() + 4);
+								DWORD fcc = 0;
+								fread(&fcc, 4, 1, fpFirst);
+								fseek(fpFirst, leafSize - 4, SEEK_CUR);
+
+								fwrite(&leafTag, 4, 1, fpOut);
+								fwrite(&newStrdSize, 4, 1, fpOut);
+								fwrite(&fcc, 4, 1, fpOut);
+								fwrite(&mergedStrdData[0], 1, mergedStrdData.size(), fpOut);
+							}
+							else {
+								fwrite(&leafTag, 4, 1, fpOut);
+								fwrite(&leafSize, 4, 1, fpOut);
+								DWORD rem = (leafSize + 1) & ~1;
+								while (rem > 0) {
+									DWORD rb = min(rem, BUFFER_SIZE);
+									fread(pBuffer, 1, rb, fpFirst);
+									fwrite(pBuffer, 1, rb, fpOut);
+									rem -= rb;
+								}
+							}
+						}
+
+						// sub-LIST ('strl') 크기 보정
+						long curStrlPos = ftell(fpOut);
+						DWORD actualStrlSize = (DWORD)(curStrlPos - strlStartPos + 4);
+						fseek(fpOut, strlSizePos, SEEK_SET);
+						fwrite(&actualStrlSize, 4, 1, fpOut);
+						fseek(fpOut, curStrlPos, SEEK_SET);
+					}
+					else if (subTag == 0x64727473 && !mergedStrdData.empty()) {
+						DWORD newStrdSize = (DWORD)(mergedStrdData.size() + 4);
+						DWORD fcc = 0;
+						fread(&fcc, 4, 1, fpFirst);
+						fseek(fpFirst, subSize - 4, SEEK_CUR);
+
+						fwrite(&subTag, 4, 1, fpOut);
+						fwrite(&newStrdSize, 4, 1, fpOut);
+						fwrite(&fcc, 4, 1, fpOut);
+						fwrite(&mergedStrdData[0], 1, mergedStrdData.size(), fpOut);
+					}
+					else {
+						fwrite(&subTag, 4, 1, fpOut);
+						fwrite(&subSize, 4, 1, fpOut);
+						DWORD rem = (subSize + 1) & ~1;
+						while (rem > 0) {
+							DWORD rb = min(rem, BUFFER_SIZE);
+							fread(pBuffer, 1, rb, fpFirst);
+							fwrite(pBuffer, 1, rb, fpOut);
+							rem -= rb;
+						}
+					}
+				}
+
+				// hdrl LIST 크기 보정
+				long curHdrlPos = ftell(fpOut);
+				DWORD actualHdrlSize = (DWORD)(curHdrlPos - hdrlStartPos + 4);
+				fseek(fpOut, hdrlSizePos, SEEK_SET);
+				fwrite(&actualHdrlSize, 4, 1, fpOut);
+				fseek(fpOut, curHdrlPos, SEEK_SET);
+				break;
+			}
+		}
+		fseek(fpFirst, listSize, SEEK_CUR);
+	}
+	fclose(fpFirst);
+
+	// 3단계: 'LIST' [moviSize] 'movi' 헤더 위치 기록
+	long moviListHeaderPos = ftell(fpOut);
+	DWORD dwMoviTag = 0x5453494C;
+	DWORD dwMoviDummySize = 0;
+	DWORD dwMoviType = 0x69766F6D;
+	fwrite(&dwMoviTag, 4, 1, fpOut);
+	fwrite(&dwMoviDummySize, 4, 1, fpOut);
+	fwrite(&dwMoviType, 4, 1, fpOut);
+
+	// 4단계: 각 원본 파일의 movi 데이터 복사 및 스트림별 프레임/오디오 독립 카운팅
+	for (size_t i = 0; i < srcFiles.size(); ++i)
+	{
+		FILE* fpIn = NULL;
+		if (_wfopen_s(&fpIn, srcFiles[i], _T("rb")) != 0 || !fpIn)
+			continue;
+
+		DWORD curMoviBaseOffset = dwTotalMoviDataSize + 4; // 'movi' FourCC 다음부터의 오프셋
+		fseek(fpIn, 12, SEEK_SET);
+
+		while (fread(&fourCC, 4, 1, fpIn) == 1)
+		{
+			if (fread(&listSize, 4, 1, fpIn) != 1) break;
+
+			if (fourCC == 0x5453494C) { // 'LIST'
+				fread(&listType, 4, 1, fpIn);
+				if (listType == 0x69766F6D) { // 'movi'
+					DWORD remain = listSize - 4;
+					dwTotalMoviDataSize += remain;
+					while (remain > 0) {
+						DWORD readBytes = min(remain, BUFFER_SIZE);
+						fread(pBuffer, 1, readBytes, fpIn);
+						fwrite(pBuffer, 1, readBytes, fpOut);
+						remain -= readBytes;
+					}
+				}
+				else {
+					fseek(fpIn, listSize - 4, SEEK_CUR);
+				}
+			}
+			else if (fourCC == 0x31786469) { // 'idx1'
+				DWORD entryCount = listSize / sizeof(AVI_INDEX_ENTRY);
+				for (DWORD k = 0; k < entryCount; ++k) {
+					AVI_INDEX_ENTRY entry;
+					if (fread(&entry, sizeof(AVI_INDEX_ENTRY), 1, fpIn) == 1) {
+						entry.dwOffset += (curMoviBaseOffset - 4); // movi 상대 오프셋 정밀 보정
+						mergedIndex.push_back(entry);
+
+						// 스트림 번호 파싱 ('00dc' -> 0, '01dc' -> 1, '02dc' -> 2, '03wb' -> 3)
+						char ch0 = (char)(entry.dwFourCC & 0xFF);
+						char ch1 = (char)((entry.dwFourCC >> 8) & 0xFF);
+						char ch2 = (char)((entry.dwFourCC >> 16) & 0xFF);
+						char ch3 = (char)((entry.dwFourCC >> 24) & 0xFF);
+
+						if (ch0 >= '0' && ch0 <= '7' && ch1 >= '0' && ch1 <= '9') {
+							int streamIdx = (ch0 - '0') * 10 + (ch1 - '0');
+							if (streamIdx < 8) {
+								if (ch2 == 'w' && ch3 == 'b') {
+									// 오디오 스트림: 바이트(또는 샘플) 길이 누적
+									streamLengths[streamIdx] += entry.dwLength;
+								}
+								else {
+									// 비디오 스트림: 프레임 수 누적
+									streamLengths[streamIdx]++;
+									if (streamIdx == 0) {
+										dwMainVideoFrames++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else {
+				fseek(fpIn, listSize, SEEK_CUR);
+			}
+		}
+		fclose(fpIn);
+	}
+
+	// 5단계: 통합 idx1 인덱스 테이블 기록
+	DWORD dwIdx1Tag = 0x31786469;
+	DWORD dwIdx1Size = (DWORD)(mergedIndex.size() * sizeof(AVI_INDEX_ENTRY));
+	fwrite(&dwIdx1Tag, 4, 1, fpOut);
+	fwrite(&dwIdx1Size, 4, 1, fpOut);
+	if (!mergedIndex.empty()) {
+		fwrite(&mergedIndex[0], sizeof(AVI_INDEX_ENTRY), mergedIndex.size(), fpOut);
+	}
+
+	// 6단계: 파일 크기 및 헤더 메타데이터 정밀 갱신
+	long lTotalFileSize = ftell(fpOut);
+
+	// (1) RIFF 전체 크기
+	fseek(fpOut, 4, SEEK_SET);
+	DWORD dwRiffSize = (DWORD)(lTotalFileSize - 8);
+	fwrite(&dwRiffSize, 4, 1, fpOut);
+
+	// (2) avih.dwTotalFrames (메인 비디오 총 프레임 수)
+	fseek(fpOut, 32, SEEK_SET);
+	fwrite(&dwMainVideoFrames, 4, 1, fpOut);
+
+	// (3) movi LIST 최종 크기
+	fseek(fpOut, moviListHeaderPos + 4, SEEK_SET);
+	DWORD dwFinalMoviListSize = dwTotalMoviDataSize + 4;
+	fwrite(&dwFinalMoviListSize, 4, 1, fpOut);
+
+	// (4) 각 스트림별 strh.dwLength를 해당 스트림의 실제 길이로 1:1 정밀 갱신
+	fseek(fpOut, 12, SEEK_SET);
+	int currentStreamIdx = 0;
+
+	while (ftell(fpOut) < moviListHeaderPos) {
+		DWORD tag = 0, size = 0;
+		if (fread(&tag, 4, 1, fpOut) != 1) break;
+		if (fread(&size, 4, 1, fpOut) != 1) break;
+
+		if (tag == 0x68727473) { // 'strh'
+			long strhDataStart = ftell(fpOut);
+			if (currentStreamIdx < 8 && streamLengths[currentStreamIdx] > 0) {
+				// strh.dwLength 위치는 strh 데이터 시작 후 32번째 바이트
+				fseek(fpOut, strhDataStart + 32, SEEK_SET);
+				fwrite(&streamLengths[currentStreamIdx], 4, 1, fpOut);
+			}
+			currentStreamIdx++;
+			fseek(fpOut, strhDataStart + size, SEEK_SET);
+		}
+		else if (tag != 0x5453494C && tag != 0x46464952) {
+			fseek(fpOut, size, SEEK_CUR);
+		}
+	}
+
+	delete[] pBuffer;
+	fclose(fpOut);
+	return true;
+}
+
 bool CWBCFileManager::fileMerge(CString strDestPath, bool is_Nxfs)
 {
 	bool bSuccess = FALSE;
-	int channel = 2;
-	int nFileCount = 0;
-	
-	CFile	merge_list;
+	int nFileCount = (int)this->m_listAviFilePath.size();
+
+	if (nFileCount == 0)
+		return FALSE;
+
 	CString cstrPath(strDestPath);
 	CString cstrMergeFileName(strDestPath);
 
-	CString csMergeList;
-
-	if(strDestPath.ReverseFind( '\\' ) != strDestPath.GetLength() - 1){
-			cstrPath.Append(_T("\\"));
-			cstrMergeFileName.Append(_T("\\"));
+	if (strDestPath.ReverseFind('\\') != strDestPath.GetLength() - 1) {
+		cstrPath.Append(_T("\\"));
+		cstrMergeFileName.Append(_T("\\"));
 	}
 
+	// 1. FVFS 암호화 해제 및 소스 파일 목록 수집
+	std::vector<CString> srcFiles;
 	ITER_AVI_FILE iFile = this->m_listAviFilePath.begin();
 	ITER_AVI_FILE iFileEnd = this->m_listAviFilePath.end();
-	
-	for( ; iFile != iFileEnd; iFile ++ )
+
+	for (; iFile != iFileEnd; iFile++)
 	{
-		int nPos = iFile->ReverseFind( '.' );
-		csMergeList.Append(_T("file "));
-
-		CString csTmpFile(iFile->GetBuffer());
-		CString csFileName(iFile->GetBuffer());
-
-		for( ; csTmpFile.ReverseFind( _T('\\') > 0) ; ){
-				int pos = csTmpFile.ReverseFind( _T('\\'));
-				if(pos > 0){
-			    	csTmpFile = csTmpFile.Left(pos);
-					csFileName.Insert(pos, _T('\\'));
-				}
-				else
-					break;
-		}
-
-		csTmpFile = csFileName;
-		
-		for( ;csTmpFile.ReverseFind( _T('\ ') > 0) ; ){
-		    	int pos = csTmpFile.ReverseFind( _T('\ '));
-				if(pos > 0){
-			    	csTmpFile = csTmpFile.Left(pos);
-					csFileName.Insert(pos, _T('\\'));
-				}
-				else
-					break;
-		}
-		
-		csMergeList.Append(csFileName);
-		csMergeList.Append(_T("\r\n"));
-		if(nFileCount == 0)
-			cstrMergeFileName.Append(ClUtil::PATH::getFileNameSpecW(iFile->GetBuffer()).c_str());
-
-		if(iFile->GetAt(nPos-1) == L'1')
-			channel = 1;
-
-		if(iFile->Find(_T("fvfs")) >= 0 ) {
-			//const char avi_riff_hd[16] = { 0x52, 0x49, 0x46, 0x46, 0xf8, 0xff, 0xbf, 0x00, 0x41, 0x56, 0x49, 0x20, 0x4c, 0x49, 0x53, 0x54 };
-			//if(!CBBoxUtil::ReplaceFileData(iFile->GetBuffer(), avi_riff_hd, 16, 0)){
-			//	CLD_FL( DF_ERROR, " ReplaceFileData error !! (fvfs => riff)\r\n");
-			//}
+		if (iFile->Find(_T("fvfs")) >= 0) {
 			CT2A ascii(iFile->GetBuffer());
 			security_file_change(ascii.m_psz, false);
 		}
-		
-		nFileCount++;
+		srcFiles.push_back(iFile->GetBuffer());
 	}
 
-	if(nFileCount == 1){
-		if(is_Nxfs){
+	// jun 260826 다중 파일 머지 시 프레임 레이트(FPS) 불일치 검사 및 다국어 팝업 안내
+	if (nFileCount > 1) {
+		DWORD dwBaseFps = 0;
+		for (size_t i = 0; i < srcFiles.size(); ++i) {
+			DWORD dwCurFps = GetAviFps(srcFiles[i]);
+			if (i == 0) {
+				dwBaseFps = dwCurFps;
+			}
+			else if (dwBaseFps != 0 && dwCurFps != 0 && abs((int)dwBaseFps - (int)dwCurFps) >= 2) {
+				// FPS 불일치 감지 (예: 15fps vs 30fps) -> 다국어 안내 팝업 출력 후 안전하게 중단
+#if (BUILD_LANGUAGE == LANGUAGE_JAPANESE)
+				AfxMessageBox(_T("選?されたファイルの中にフレ?ムレ?トが異なるファイルが含まれています。同じ??モ?ドのファイルを選?してください。"), MB_ICONWARNING);
+#elif (BUILD_LANGUAGE == LANGUAGE_KOREAN)
+				AfxMessageBox(_T("선택된 파일 중 프레임 레이트가 다른 파일이 포함되어 있습니다. 동일한 녹화 모드의 파일을 선택해 주세요."), MB_ICONWARNING);
+#else
+				AfxMessageBox(_T("Selected files have different frame rates. Please select files with the same recording mode."), MB_ICONWARNING);
+#endif
+				return FALSE;
+			}
+		}
+	}
+
+	// 2. 단일 파일 백업: 기존 분리 로직 수행
+	if (nFileCount == 1) {
+		if (is_Nxfs) {
 			bSuccess = fileSeparate(this->m_listAviFilePath.begin()->GetBuffer(), TEXT("avi"), is_Nxfs);
 		}
 		else {
@@ -1009,98 +1627,46 @@ bool CWBCFileManager::fileMerge(CString strDestPath, bool is_Nxfs)
 			csNewFilePath.Append(ClUtil::PATH::getFileNameSpecW(this->m_listAviFilePath.begin()->GetBuffer()).c_str());
 			csNewFilePath.Append(TEXT(".avi"));
 
-			if(::CopyFile(this->m_listAviFilePath.begin()->GetBuffer(), csNewFilePath.GetBuffer(), FALSE))		
+			if (::CopyFile(this->m_listAviFilePath.begin()->GetBuffer(), csNewFilePath.GetBuffer(), FALSE))
 				bSuccess = fileSeparate(csNewFilePath.GetBuffer(), TEXT("avi"), is_Nxfs);
-			else
-				printf( "File copying failed." );		
 		}
 	}
+	// 3. 다중 파일 머지: 순수 C++ 무손실 머지 + 4개 파일 자동 생성
 	else {
-		CString cstrOutFileName;
-		cstrOutFileName.Format(TEXT("%sPlease_wait__file_merging.avi"), cstrPath);
-
-		iFileEnd--;
+		// 최종 머지 파일명: [시작파일명]-[종료파일명].avi
+		cstrMergeFileName.Append(ClUtil::PATH::getFileNameSpecW(this->m_listAviFilePath.front().GetBuffer()).c_str());
 		cstrMergeFileName.Append(_T("-"));
-		cstrMergeFileName.Append(ClUtil::PATH::getFileNameSpecW(iFileEnd->GetBuffer()).c_str());
+		cstrMergeFileName.Append(ClUtil::PATH::getFileNameSpecW(this->m_listAviFilePath.back().GetBuffer()).c_str());
 		cstrMergeFileName.Append(_T(".avi"));
-		
-		cstrPath.Append(_T("merge_list.txt"));
-		
-		if( merge_list.Open(cstrPath, CFile::modeCreate | CFile::modeWrite | CFile::typeBinary, NULL) )
+
+		if (_taccess(cstrMergeFileName.GetBuffer(), 0) != -1)
+			CFile::Remove(cstrMergeFileName.GetBuffer());
+
+		// 1단계: 순수 C++ 초고속 무손실 머지 실행 (모든 채널 및 GPS/G-Sensor 100% 결합!)
+		bSuccess = NativeAviMerge(srcFiles, cstrMergeFileName);
+
+		if (bSuccess)
 		{
-			TCHAR	szCommand[MAX_PATH];
-			STARTUPINFO si;
-			PROCESS_INFORMATION pi;
-			CString cstrffmpegexe(_T("ffmpeg.exe"));
-			
-		//	if(is_Nxfs)                                                              //jun 220121 ffmpeg_nxfs.exe에 Merge 기능이 없음.
-		//		cstrffmpegexe = _T("ffmpeg_nxfs.exe");
-
-			CT2A ascii(csMergeList.GetBuffer());
-
-			memset( &si, 0, sizeof(si));
-			si.cb = sizeof(si);
-			si.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
-			si.wShowWindow = SW_HIDE; //SW_SHOW;
-
-			ZeroMemory(&pi, sizeof(pi));
-			
-			merge_list.Write( ascii.m_psz, strlen(ascii.m_psz) + 1 );
-			merge_list.Close();
-
-			if(channel == 1){
-				wsprintf( szCommand, _T("%s -y -f concat -safe 0 -i \"%s\" -c copy \"%s\""), cstrffmpegexe, cstrPath, cstrOutFileName);
-			}
-			else {
-				wsprintf( szCommand, _T("%s -y -f concat -safe 0 -i \"%s\" -vcodec copy -vcodec copy -acodec copy -map 0:0 -map 0:1 -map 0:2 -c copy \"%s\""), cstrffmpegexe, cstrPath, cstrOutFileName);
-			}
-			bSuccess = CreateProcess(NULL,szCommand,NULL,NULL,NULL,CREATE_NEW_CONSOLE,NULL,NULL,&si,&pi);
-
-			if(bSuccess == TRUE)
-			{					
-				DWORD dwResult = WaitForSingleObject(pi.hProcess, 300000); // wait 5min
-				
-				CloseHandle(pi.hThread);
-				CloseHandle(pi.hProcess);
-
-				if(dwResult != WAIT_OBJECT_0)
-				{
-					CFile::Remove(cstrOutFileName.GetBuffer());
-					CLD_FL( DF_ERROR, "File merge failed." );
-				}
-				else if (_taccess(cstrOutFileName.GetBuffer(), 0) != -1)
-				{
-					if (_taccess(cstrMergeFileName.GetBuffer(), 0) != -1)
-						CFile::Remove(cstrMergeFileName.GetBuffer());
-						
-					//rename
-					CFile::Rename( cstrOutFileName.GetBuffer(), cstrMergeFileName.GetBuffer());
-					
-					bSuccess = fileSeparate(cstrMergeFileName, TEXT("avi"), is_Nxfs); // 머지파일경우 파일 미분리시 막음 
-				}
-			}
-			CFile::Remove(cstrPath.GetBuffer());
+			// 2단계: 결합된 파일로부터 채널별 분리 파일(_1, _2, _3) 생성 -> 총 4개 파일 완성!
+			fileSeparate(cstrMergeFileName, TEXT("avi"), is_Nxfs);
 		}
 	}
 
+	// 4. 후처리: NxFS 임시 파일 삭제 및 FVFS 재암호화
 	iFile = this->m_listAviFilePath.begin();
 	iFileEnd = this->m_listAviFilePath.end();
 
-	for( ; iFile != iFileEnd; iFile ++ )
+	for (; iFile != iFileEnd; iFile++)
 	{
-		if(is_Nxfs){
-			if(nFileCount > 1)
-				CFile::Remove(iFile->GetBuffer());
+		if (is_Nxfs && nFileCount > 1) {
+			CFile::Remove(iFile->GetBuffer());
 		}
-		if(iFile->Find(_T("fvfs")) >= 0 ) {
-			//if(!CBBoxUtil::ReplaceFileData(iFile->GetBuffer(), "FVFS   CDR MOVIE", 16, 0)){
-			//	CLD_FL( DF_ERROR, " ReplaceFileData error !! (riff => fvfs)\r\n");
-			//}
+		if (iFile->Find(_T("fvfs")) >= 0) {
 			CT2A ascii(iFile->GetBuffer());
 			security_file_change(ascii.m_psz, true);
 		}
 	}
-	
+
 	return bSuccess;
 }
 
@@ -1154,11 +1720,53 @@ bool CWBCFileManager::fileSeparate(CString cstrNewFileName, CString saveFileExt,
 	}
 	// 1ch은 분리하지 않음
 	std::reverse_iterator<std::wstring::iterator> rit = wtsFileName.rbegin();
+	
 	if(rit[0] == L'1')
 		return TRUE;
 //// ++}***************************************
 
 
+
+
+//전방만 동작하도록안책임 
+
+#ifdef REAR_CAM_OFF
+	int channel_count = 1;		
+#else
+	int channel_count = 2;
+	if(rit[0] == L'3')
+		channel_count = 3;
+#endif	
+	
+	for(i = 0; i <  channel_count; i++)
+
+
+
+
+
+//이전코드
+/*
+#ifdef REAR_CAM_OFF
+	int channel_count = 1;	
+
+	for(i = 0; i <  1; i++)   // jun 170407 : rear ch skip
+		
+#else
+
+	int channel_count = 2;
+	if(rit[0] == L'3')
+		channel_count = 3;
+	
+	for(i = 0; i <  channel_count; i++)
+		
+#endif
+*/
+
+
+
+
+// 2채널 코드
+/*
 #ifdef REAR_CAM_OFF
 
 	for(i = 0; i <  1; i++)   // jun 170407 : rear ch skip
@@ -1168,6 +1776,10 @@ bool CWBCFileManager::fileSeparate(CString cstrNewFileName, CString saveFileExt,
 	for(i = 0; i <  2; i++)
 		
 #endif
+*/
+
+
+
 
 //	for(i=0, i=1; i < 1; i++, i < 2) // 20101125: front, rear ch skip
 //	for(i = 1; i <  2; i++) //20160520 : front ch skip
@@ -1185,16 +1797,35 @@ bool CWBCFileManager::fileSeparate(CString cstrNewFileName, CString saveFileExt,
 			
 			ZeroMemory(&pi, sizeof(pi));
 
+
 			cstrOutFileName.Format(TEXT("%sPlease_wait__%d_%d_temp.%s"), mp4SavePath, i, j, saveFileExt);
 
-			if(j== 0) // av //20201026 j== 1 ==> 0 (2채널 백업: F,R파일에  Audio없음 문제 수정)
+
+#ifdef REAR_CAM_OFF2
+			
+			if( i == 1)
+  			continue; // 실내 스킵
+			
+
+ #else
+
+ 
+
+ #endif
+			if(j== 0) { // av //20201026 j== 1 ==> 0 (2채널 백업: F,R파일에  Audio없음 문제 수정)
+
+
 				//cstrCmdOpt.Format(TEXT("-vcodec copy -acodec copy -map 0:%d -map 0:0"), i+1);
-				cstrCmdOpt.Format(TEXT("-vcodec copy -acodec copy -map 0:%d -map 0:2"), i);
+				if(channel_count == 3)
+					cstrCmdOpt.Format(TEXT("-vcodec copy -acodec copy -map 0:%d -map 0:3"), i);
+				else
+					cstrCmdOpt.Format(TEXT("-vcodec copy -acodec copy -map 0:%d -map 0:2"), i);
+			}
 			else // video only
 				cstrCmdOpt.Format(TEXT("-vcodec copy -map 0:%d"), i);
 			if(is_Nxfs)
 				wsprintf( szCommand, _T("ffmpeg_nxfs.exe -y -i  \"%s\" %s \"%s\""),  saveCurrentFileName, cstrCmdOpt, cstrOutFileName);
-                   else
+           else
 				wsprintf( szCommand, _T("ffmpeg.exe -y -i  \"%s\" %s \"%s\""),  saveCurrentFileName, cstrCmdOpt, cstrOutFileName);
 				   
 			bSuccess = CreateProcess(NULL,szCommand,NULL,NULL,NULL,CREATE_NEW_CONSOLE,NULL,NULL,&si,&pi);
@@ -1241,8 +1872,12 @@ bool CWBCFileManager::fileSeparate(CString cstrNewFileName, CString saveFileExt,
 
 							bFileSaveOk = TRUE;
 
-							cstrNewFileName.Format(TEXT("%s_%s.%s"), saveDstFile, (i == 0) ? TEXT("F") : TEXT("R"),  saveFileExt);
-
+							if(channel_count == 2)
+								cstrNewFileName.Format(TEXT("%s_%s.%s"), saveDstFile, (i == 0) ? TEXT("F") : TEXT("R"),  saveFileExt);
+							else
+								cstrNewFileName.Format(TEXT("%s_%s.%s"), saveDstFile, (i == 0) ? TEXT("1") : (i == 1) ? TEXT("2") : TEXT("3"),  saveFileExt);
+								//cstrNewFileName.Format(TEXT("%s_%d.%s"), saveDstFile, i + 1,  saveFileExt);
+	
 
 							//same file name check and delete
 							hFile = ::CreateFile( cstrNewFileName.GetBuffer(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -1284,6 +1919,8 @@ bool CWBCFileManager::fileSeparate(CString cstrNewFileName, CString saveFileExt,
 
 	return bFileSaveOk;
 }
+
+
 
 bool CWBCFileManager::addDedicatedDir( const CString& cstrDedDirName )
 {
