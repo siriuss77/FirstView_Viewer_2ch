@@ -87,7 +87,7 @@
 //	#define CAPTURE_OFF         // jun 20201104
 //	#define PRINT_OFF             // jun 20201104
 //	#define ABOUT_OFF            // jun 181217 업그레이드 미사용
-//   #define DEF_AVI_FILE_MERGE   // jun 20201125 백업시 1개파일로 머지 
+   #define DEF_AVI_FILE_MERGE   // jun 20201125 백업시 1개파일로 머지 
 
 
 
@@ -303,15 +303,15 @@
 
 
 
-	#define 	_SW_VERSION				"DA210_V2.4.24"
-//	#define 	_SW_VERSION				"DA210S_V2.4.24"    // toto 자동차 
-//	#define 	_SW_VERSION				"DA210F_V2.4.24"    // 일본 택시조합  
-//	#define 	_SW_VERSION				"DA210T_V2.4.24"    // 도쿄 전력   
-//	#define 	_SW_VERSION				"DA300_V2.4.24"      // pai-r
-//	#define 	_SW_VERSION				"DA300E_V2.4.24"    // Entetsu
-//	#define 	_SW_VERSION				"DA300T_V2.4.24"    // 도쿄 전력 
-//	#define 	_SW_VERSION				"DA300K1_V2.4.24"   //keio 본사용 
-//	#define 	_SW_VERSION				"DA300K2_V2.4.24"   //keio 영업용 Front Only
+//	#define 	_SW_VERSION				"DA210_V2.4.25"
+//	#define 	_SW_VERSION				"DA210S_V2.4.25"    // toto 자동차 
+//	#define 	_SW_VERSION				"DA210F_V2.4.25"    // 일본 택시조합  
+//	#define 	_SW_VERSION				"DA210T_V2.4.25"    // 도쿄 전력   
+//	#define 	_SW_VERSION				"DA300_V2.4.25"      // pai-r
+	#define 	_SW_VERSION				"DA300E_V2.4.25"    // Entetsu
+//	#define 	_SW_VERSION				"DA300T_V2.4.25"    // 도쿄 전력 
+//	#define 	_SW_VERSION				"DA300K1_V2.4.25"   //keio 본사용 
+//	#define 	_SW_VERSION				"DA300K2_V2.4.25"   //keio 영업용 Front Only
 
 
 
