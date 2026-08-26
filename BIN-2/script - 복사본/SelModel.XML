@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+  <property>
+    <geometry x="-1" y="-1" w="400" h="200"/>
+    <bgimgs>
+      <bgimg mode="0">
+        <image drawmode="buttonface">./popup/popup_bg.bmp</image>
+      </bgimg>
+    </bgimgs>
+  </property>
+  <controls>
+    <control type="button" id="selmodel.button.ok">
+      <mode geobase="center" x="-155" y="164" w="154" h="31">0</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./popup/accept_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./popup/accept_press.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./popup/accept_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./popup/accept_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="selmodel.button.cancel">
+      <mode geobase="center" x="1" y="164" w="154" h="31">0</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./popup/close_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./popup/close_press.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./popup/close_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./popup/close_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="text" id="selmodel.text.title">
+      <mode x="10" y="0" w="390" h="25">0</mode>
+      <text color="255|255|155|0" format="left|vcenter|bold" size="10">Select blackbox Model</text>
+    </control>
+    <control type="text" id="selmodel.text.comment">
+      <mode x="10" y="40" w="390" h="60">0</mode>
+      <text color="160|255|255|255" format="left|vcenter|bold|wordbreak" size="10">
+        Selected removable disk is not blackbox dedicated.
+        You need to choose model name to save configuration file to selected disk.</text>
+    </control>
+    <control type="text" id="selmodel.text.model">
+      <mode x="10" y="110" w="150" h="30">0</mode>
+      <text color="160|255|255|255" format="left|vcenter|bold" size="10">Selected Model : </text>
+    </control>
+  </controls>
+</dialog>

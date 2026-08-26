@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+  <property>
+    <geometry x="-1" y="-1" w="498" h="728"/>
+    <bgimgs>
+      <bgimg mode="0">
+        <image drawmode="buttonface">./popup/setting_bg.bmp</image>
+      </bgimg>
+    </bgimgs>
+  </property>
+  <controls>
+   <control type="text" id="setting.text.title">
+      <mode x="10" y="5" w="390" h="25">0</mode>
+      <text color="255|255|155|0" format="left|vcenter|bold" size="10">Setting</text>
+   </control>
+   <control type="button" id="setting.button.exit" mode="push">
+      <mode x="468" y="1" w="28" h="28">0</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./popup/exit_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./popup/exit_press.bmp</skin>
+        <skin type="disabled" color="96|255|255|255" tpcolor="255|0|255">./popup/exit_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./popup/exit_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.settime_kor">
+      <mode x="405" y="150" w="60" h="24">0</mode>
+      <skins>
+         <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="60" sy="0" sw="60" sh="24">./popup/setting_settime_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_kor.bmp</skin>
+      </skins>
+     </control>
+  	 <control type="button" id="setting.button.settime_eng">
+      <mode x="405" y="150" w="60" h="24">0</mode>
+      <skins>
+         <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="60" sy="0" sw="60" sh="24">./popup/setting_settime_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_eng.bmp</skin>
+      </skins>
+     </control>
+     <control type="button" id="setting.button.settime_jpn">
+      <mode x="405" y="150" w="60" h="24">0</mode>
+      <skins>
+         <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="60" sy="0" sw="60" sh="24">./popup/setting_settime_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="60" sh="24">./popup/setting_settime_jpn.bmp</skin>
+      </skins>
+     </control>
+     <control type="slider" id="setting.slider.videoquality">
+      <mode x="140" y="350" w="220" h="15">0</mode>
+      <track min="1" max="5" page="1" mleft="8" mtop="6" mright="16" mbottom="6">1</track>
+      <skins>
+        <skin type="btrack" drawmode="buttonface" x="0" y="0" w="full" h="4" tpcolor="255|0|255">./popup/progressbar_bg_play.bmp</skin>
+        <skin type="thumb" x="0" y="0" w="15" h="15" tpcolor="255|0|255">./popup/progressbar_control.bmp</skin>
+      </skins>
+    </control>
+     <control type="slider" id="setting.slider.gsensorsens">
+      <mode x="140" y="405" w="220" h="15">0</mode>
+      <track min="1" max="20" page="1" mleft="8" mtop="6" mright="16" mbottom="6">1</track>
+      <skins>
+        <skin type="btrack" drawmode="buttonface" x="0" y="0" w="full" h="4" tpcolor="255|0|255">./popup/progressbar_bg_play.bmp</skin>
+        <skin type="thumb" x="0" y="0" w="15" h="15" tpcolor="255|0|255">./popup/progressbar_control.bmp</skin>
+      </skins>
+    </control>
+    <control type="slider" id="setting.slider.lowvoltage">
+      <mode x="140" y="582" w="220" h="15">0</mode>
+      <track min="1" max="11" page="1" mleft="8" mtop="6" mright="16" mbottom="6">1</track>
+      <skins>
+        <skin type="btrack" drawmode="buttonface" x="0" y="0" w="full" h="4" tpcolor="255|0|255">./popup/progressbar_bg_play.bmp</skin>
+        <skin type="thumb" x="0" y="0" w="15" h="15" tpcolor="255|0|255">./popup/progressbar_control.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.format_kor">
+      <mode geobase="left|bottom" x="17" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_format_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.format_eng">
+      <mode geobase="left|bottom" x="17" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_format_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.format_jpn">
+      <mode geobase="left|bottom" x="17" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_format_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_format_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.init_kor">
+      <mode geobase="left|bottom" x="137" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_asinit_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.init_eng">
+      <mode geobase="left|bottom" x="137" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_asinit_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.init_jpn">
+      <mode geobase="left|bottom" x="137" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_asinit_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_asinit_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.save_kor">
+      <mode geobase="left|bottom" x="257" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_save_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.save_eng">
+      <mode geobase="left|bottom" x="257" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_save_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.save_jpn">
+      <mode geobase="left|bottom" x="257" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/setting_save_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/setting_save_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.cancel_kor">
+      <mode geobase="left|bottom" x="377" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.cancel_eng">
+      <mode geobase="left|bottom" x="377" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="setting.button.cancel_jpn">
+      <mode geobase="left|bottom" x="377" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+      </skins>
+    </control>
+  </controls>
+</dialog>

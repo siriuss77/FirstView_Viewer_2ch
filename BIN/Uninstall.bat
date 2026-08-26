@@ -1,0 +1,1 @@
+C:\Windows\System32\msiexec /passive /x {96143B9E-D51D-491A-9ADF-1A691F208A62}

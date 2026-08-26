@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup>
+	<item id="Name" value="DA200" />
+	<item id="FWVersion" value="0.0.4" />
+	<item id="GSensorSensi" value="10" />
+	<item id="GMT" value="+8" />
+	<item id="AudioRecEnable" value="FALSE" />
+	<item id="SpeakerVol" value="0" />
+	<item id="VideoQuality" value="MIDDLE" /> <!-- LOW, MIDDLE, HIGH -->
+	<item id="EventMode" value="A" /> <!-- A, B, C -->
+	<item id="AutoPmEnable" value="FALSE" />
+	<item id="AutoPmEnterTime" value="10" />
+	<item id="PmImpactSensi" value="1" />
+	<item id="PmMotionEnable" value="TRUE" />
+	<item id="PmMotionSensi" value="3" />
+	<item id="PmMotionSensi2" value="3" />
+	<item id="CarBatVoltage" value="12V" /> <!-- 12V, 24V -->
+	<item id="CarBatVoltCalib" value="+0" />
+	<item id="CarBatSafeEnable" value="TRUE" />
+	<item id="CarBatSafeVoltage" value="118" />
+	<item id="TempSafeEnable" value="TRUE" />
+	<item id="TempSafeValue" value="90" />
+	<item id="TempStableValue" value="60" />
+	<item id="SecurityLEDEnable" value="TRUE" />
+	<item id="SecurityLEDPeriod" value="500" />
+	<item id="SecurityLEDMDWarning" value="TRUE" />
+	<item id="SecurityLEDOperating" value="2" />
+	<item id="LcdOffTime" value="30" />
+	<item id="VideoOut" value="TV" /> <!-- TV, LCD -->
+	<item id="FactoryReset" value="FALSE" />
+</setup>

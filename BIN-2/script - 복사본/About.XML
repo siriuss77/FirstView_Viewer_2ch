@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+  <property>
+    <geometry x="-1" y="-1" w="323" h="405"/>
+    <bgimgs>
+      <bgimg mode="0">
+        <image drawmode="buttonface">./popup/popup_bg.bmp</image>
+        <image x="0" y="30" w="323" h="160" tpcolor="255|0|255">./popup/about_version_bg.bmp</image>
+        <image x="0" y="200" w="323" h="160" tpcolor="255|0|255">./popup/about_update_bg.bmp</image>
+      </bgimg>
+    </bgimgs>
+  </property>
+  <controls>
+    <control type="text" id="about.text.title">
+      <mode x="10" y="5" w="390" h="25">0</mode>
+      <text color="255|255|155|0" format="left|vcenter|bold" size="10">About Viewer</text>
+    </control>
+    <control type="text" id="about.text.viewerver">
+      <mode x="25" y="70" w="250" h="50">0</mode>
+      <text color="160|255|255|255" format="left|vcenter|bold|wordbreak" size="10">Date : \nVersion :</text>
+    </control>
+    <control type="text" id="about.text.firmwarever">
+      <mode x="25" y="135" w="250" h="50">0</mode>
+      <text color="160|255|255|255" format="left|top|bold|wordbreak" size="10">Date : \nVersion :</text>
+    </control>
+    <control type="text" id="about.text.updatecomment">
+      <mode x="30" y="213" w="270" h="80">0</mode>
+      <text color="160|255|255|255" format="left|vcenter|bold|wordbreak" size="10">
+        The latest files are available on the our company's website.\nPlease visit the our company's website to download.</text>
+    </control>
+    <control type="button" id="about.button.gotoupdate_kor">
+      <mode geobase="center|top" x="-52" y="320" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/about_updatepage_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="about.button.gotoupdate_eng">
+      <mode geobase="center|top" x="-52" y="320" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/about_updatepage_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="about.button.gotoupdate_jpn">
+      <mode geobase="center|top" x="-52" y="320" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/about_updatepage_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/about_updatepage_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="about.button.ok_kor">
+       <mode geobase="center|top" x="-52" y="375" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="about.button.ok_eng">
+       <mode geobase="center|top" x="-52" y="375" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="about.button.ok_jpn">
+       <mode geobase="center|top" x="-52" y="375" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+      </skins>
+    </control>
+  </controls>
+</dialog>

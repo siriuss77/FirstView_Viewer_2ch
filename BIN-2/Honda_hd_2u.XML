@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application>
+  <essential>
+    <brand>HONDA HD 2U</brand>
+    <models>
+      <model>DIGITAL 2HD BLACKOBX</model>
+    </models>
+    <site>about:Tabs</site>
+    <updatesite>about:Tabs</updatesite>
+    <!--extension>avi,mp4</extension-->
+    <extension>mp4</extension>
+    <logfile>system.log</logfile>
+    <path>
+      <script>./script</script>
+      <image>./images</image>
+      <map>./map/map.htm</map>
+      <config>./config/config.ini</config>
+      <time>./config/time.cfg</time>
+    </path>
+    <sdcard>
+      <dir id="normal">*</dir>
+      <dir id="event">E_</dir>
+      <dir id="manual">B_</dir>
+      <dir id="motion">M_</dir>
+    </sdcard>
+    <font size="9" color="255|255|255">tahoma</font>
+  </essential>
+  <scripts>
+    <script target="MAIN">Main_Honda_hd_2u.xml</script>
+    <script target="SETTING">setting.xml</script>
+    <!--script target="GSENSOR">gsensor.xml</script-->
+    <script target="ABOUT">about.xml</script>
+    <script target="NOTIFY">notify.xml</script>
+    <script target="LOG">log.xml</script>
+    <!--script target="SELDRIVE">seldrive.xml</script>
+    <script target="SELMODEL">selmodel.xml</script-->
+  </scripts>
+  <messages>
+    <message id="question-want-quit">
+      <title>Quit Application</title>
+      <comment>Do you want to quit blackbox player?</comment>
+    </message>
+    <message id="question-dedicate-disk">
+      <title>Removable disk is invalid</title>
+      <comment>Selected removable disk is not blackbox dedicated. Do you want to save configuration file to selected disk?</comment>
+    </message>
+    <message id="question-want-settime">
+      <title>New Device Time</title>
+      <comment>Do you want to change black-box local time?</comment>
+    </message>
+    <message id="error-copy-file">
+      <title>File copying failed</title>
+      <comment>File copying failed. You can retry to file copy.</comment>
+    </message>
+    <message id="error-no-selectfile">
+      <title>No Selected file</title>
+      <comment>There is no selected file. You need to select file to save in file listbox.</comment>
+    </message>
+    <message id="error-no-srcfilter">
+      <title>No filter found</title>
+      <comment>Can not find source filter. Please reinstall this programe.</comment>
+    </message>
+    <message id="error-no-vidfilter">
+      <title>No filter found</title>
+      <comment>Can not found registered video filter(ffdshow). Please reinstall this programe.</comment>
+    </message>
+    <message id="error-remove-disk">
+      <title>Disk drive removed</title>
+      <comment>Selected drive has been removed. You can select drive to play video.</comment>
+    </message>
+    <message id="error-invalid-stream">
+      <title>Playing video failed</title>
+      <comment>Selected video is invalid. Please check selected file.</comment>
+    </message>
+    <message id="error-no-internet">
+      <title>Internet connection failed</title>
+      <comment>There is internet connection problems. You need to check internet connection and try again.</comment>
+    </message>
+  </messages>
+</application>

@@ -1,0 +1,658 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+  <property>
+  	<title>2HD Blackbox Viewer</title>
+  	<geometry x="-1" y="-1" w="1024" h="728"/>
+    <bgimgs>
+      <bgimg mode="0">
+        <image>./main/bg.bmp</image>
+      </bgimg>
+      <bgimg mode="1">
+        <image drawmode="buttonface" x="0" y="0" w="full" h="50">./main/full_bg_top.bmp</image>
+        <image drawmode="buttonface" geobase="left|bottom" x="0" y="50" w="full" h="50">./main/full_bg_bottom.bmp</image>
+      </bgimg>
+    </bgimgs>
+    <!-- Follwing items are user interface mode-->
+    <!-- 0 : Normal screen Mode -->
+    <!-- 1 : Fullscreen Mode -->
+  </property>
+  <controls>
+   <control type="video" id="main.video.zoom">
+      <mode x="5" y="55" w="720" h="405">0</mode>
+      <mode geobase="wratio" w="100" h="50">1</mode>
+    </control>
+    <control type="video" id="main.video.front">
+      <mode x="5" y="55" w="720" h="405">0</mode>
+      <mode geobase="wratio" w="100" h="50">1</mode>
+    </control>
+    <control type="video" id="main.video.rear">
+      <mode x="729" y="55" w="290" h="163">0</mode>
+      <mode geobase="wratio" w="100" h="50">1</mode>
+    </control>
+    <control type="map" id="main.web.map">
+      <mode x="729" y="297" w="290" h="163">0</mode>      
+      <mode geobase="wratio" w="100" h="50">1</mode>
+    </control>
+    <control type="button" id="main.button.site" mode="push">
+      <mode x="0" y="0" w="250" h="50">0</mode>
+      <mode x="0" y="0" w="250" h="50">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/title_bw2000.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/title_bw2000.bmp</skin>
+        <skin type="disabled" color="96|255|255|255" tpcolor="255|0|255">./main/title_bw2000.bmp</skin>
+        <skin type="hover" color="200|255|255|255" tpcolor="255|0|255">./main/title_bw2000.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.min" mode="push">
+      <mode x="891" y="6" w="30" h="29">0</mode>
+      <mode geobase="right|top" x="109" y="6" w="30" h="29">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/minimum_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/minimum_press.bmp</skin>
+        <skin type="disabled" color="96|255|255|255" tpcolor="255|0|255">./main/minimum_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/minimum_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.max" mode="push">
+      <mode x="926" y="6" w="30" h="29">0</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/maximum_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/maximum_press.bmp</skin>
+        <skin type="disabled" color="96|255|255|255" tpcolor="255|0|255">./main/maximum_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/maximum_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.nor" mode="push">
+      <mode geobase="right|top" x="74" y="6" w="30" h="29">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/maximum_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/maximum_press.bmp</skin>
+        <skin type="disabled" color="96|255|255|255" tpcolor="255|0|255">./main/maximum_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/maximum_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.exit" mode="push">
+      <mode x="961" y="6" w="30" h="29">0</mode>
+      <mode geobase="right|top" x="39" y="6" w="30" h="29">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/exit_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/exit_press.bmp</skin>
+        <skin type="disabled" color="96|255|255|255" tpcolor="255|0|255">./main/exit_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/exit_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.frchange_kor" mode="check">
+      <mode geobase="right" x="295" y="245" w="120" h="22">0</mode>
+      <mode geobase="right|bottom" x="150" y="48" w="120" h="22">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/fr_change_nor_kor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/fr_change_press_kor.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/fr_change_nor_kor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/fr_change_over_kor.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/fr_change_press_kor.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/fr_change_press_kor.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/fr_change_over_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.frchange_eng" mode="check">
+      <mode geobase="right" x="295" y="245" w="120" h="22">0</mode>
+      <mode geobase="right|bottom" x="150" y="48" w="120" h="22">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/fr_change_nor_eng.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/fr_change_press_eng.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/fr_change_nor_eng.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/fr_change_over_eng.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/fr_change_press_eng.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/fr_change_press_eng.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/fr_change_over_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.frchange_jpn" mode="check">
+      <mode geobase="right" x="295" y="245" w="120" h="22">0</mode>
+      <mode geobase="right|bottom" x="150" y="48" w="120" h="22">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/fr_change_nor_jpn.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/fr_change_press_jpn.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/fr_change_nor_jpn.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/fr_change_over_jpn.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/fr_change_press_jpn.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/fr_change_press_jpn.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/fr_change_over_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.fmchange_kor" mode="check">
+      <mode geobase="right" x="295" y="270" w="120" h="22">0</mode>
+      <mode geobase="right|bottom" x="150" y="24" w="120" h="22">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/fm_change_nor_kor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/fm_change_press_kor.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/fm_change_nor_kor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/fm_change_over_kor.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/fm_change_press_kor.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/fm_change_press_kor.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/fm_change_over_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.fmchange_eng" mode="check">
+      <mode geobase="right" x="295" y="270" w="120" h="22">0</mode>
+      <mode geobase="right|bottom" x="150" y="24" w="120" h="22">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/fm_change_nor_eng.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/fm_change_press_eng.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/fm_change_nor_eng.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/fm_change_over_eng.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/fm_change_press_eng.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/fm_change_press_eng.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/fm_change_over_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.fmchange_jpn" mode="check">
+      <mode geobase="right" x="295" y="270" w="120" h="22">0</mode>
+      <mode geobase="right|bottom" x="150" y="24" w="120" h="22">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/fm_change_nor_jpn.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/fm_change_press_jpn.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/fm_change_nor_jpn.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/fm_change_over_jpn.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/fm_change_press_jpn.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/fm_change_press_jpn.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/fm_change_over_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.zoom" mode="check">
+      <mode x="580" y="487" w="46" h="46">0</mode>
+      <mode geobase="center|bottom" x="150" y="40" w="30" h="30">1</mode>
+      <skins>
+         <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="35" sh="35">./main/cont_zoom.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="35" sy="0" sw="35" sh="35">./main/cont_zoom.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="35" sh="35">./main/cont_zoom.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="70" sy="0" sw="35" sh="35">./main/cont_zoom.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="70" sy="0" sw="35" sh="35">./main/cont_zoom.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="35" sy="0" sw="35" sh="35">./main/cont_zoom.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="35" sh="35">./main/cont_zoom.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.frontflip" mode="check">
+      <mode x="635" y="510" w="32" h="20">0</mode>
+      <mode geobase="center|bottom" x="205" y="35" w="32" h="20">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/cont_check_flip.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/cont_check_sel_flip.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/cont_check_flip.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/cont_check_over_flip.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/cont_check_sel_flip.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/cont_check_flip.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/cont_check_sel_over_flip.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.frontmirror" mode="check">
+      <mode x="685" y="510" w="32" h="20">0</mode>
+      <mode geobase="center|bottom" x="255" y="35" w="32" h="20">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/cont_check_mirror.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/cont_check_sel_mirror.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/cont_check_mirror.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/cont_check_over_mirror.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/cont_check_sel_mirror.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/cont_check_mirror.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/cont_check_sel_over_mirror.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.rearflip" mode="check">
+    	<mode geobase="right" x="295" y="222" w="32" h="20">0</mode>
+    	<mode geobase="center|bottom" x="205" y="35" w="32" h="20">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/cont_check_flip.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/cont_check_sel_flip.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/cont_check_flip.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/cont_check_over_flip.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/cont_check_sel_flip.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/cont_check_flip.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/cont_check_sel_over_flip.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.rearmirror" mode="check">
+      <mode geobase="right" x="245" y="222" w="32" h="20">0</mode>
+      <mode geobase="center|bottom" x="255" y="35" w="32" h="20">1</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/cont_check_mirror.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/cont_check_sel_mirror.bmp</skin>
+        <skin type="disabled" tpcolor="255|0|255" color="96|255|255|255">./main/cont_check_mirror.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/cont_check_over_mirror.bmp</skin>
+        <skin type="checked" tpcolor="255|0|255">./main/cont_check_sel_mirror.bmp</skin>
+        <skin type="pushed2" tpcolor="255|0|255">./main/cont_check_mirror.bmp</skin>
+        <skin type="hover2" tpcolor="255|0|255">./main/cont_check_sel_over_mirror.bmp</skin>
+      </skins>
+    </control>
+    <control type="image" id="main.image.file">
+      <mode geobase="center|top" x="-140" y="17" w="15" h="15">0</mode>
+      <mode geobase="center|top" x="-140" y="17" w="15" h="15">1</mode>
+      <image tpcolor="255|0|255">./main/play_icon.bmp</image>
+    </control>
+    <control type="text" id="main.text.file">
+      <mode geobase="center|top" x="-120" y="15" w="350" h="20">0</mode>
+      <mode geobase="center|top" x="-120" y="15" w="350" h="20">1</mode>
+      <text color="255|121|189|239" format="left|vcenter" size="12"></text>
+    </control>
+    <control type="text" id="main.text.curtime">
+      <mode x="5" y="480" w="60" h="12">0</mode>
+      <mode geobase="center|bottom" x="-460" y="45" w="57" h="12">1</mode>
+      <text color="255|255|255" format="right|vcenter" size="9">00:00:00</text>
+    </control>
+    <control type="text" id="main.text.duration">
+      <mode x="665" y="480" w="60" h="12">0</mode>
+      <mode geobase="center|bottom" x="-160" y="45" w="57" h="12">1</mode>
+      <text color="255|255|255" format="left|vcenter" size="9">00:00:00</text>
+    </control>
+    <control type="text" id="main.text.latitude">
+      <mode geobase="right" x="160" y="222" w="165" h="22">0</mode>
+      <text color="255|121|189|239" format="left|vcenter" size="12"></text>
+    </control>
+     <control type="text" id="main.text.longitude">
+      <mode geobase="right" x="160" y="246" w="165" h="22">0</mode>
+      <text color="255|121|189|239" format="left|vcenter" size="12"></text>
+    </control>
+     <control type="text" id="main.text.gps_speed">
+      <mode geobase="right" x="160" y="270" w="165" h="22">0</mode>
+      <text color="255|121|189|239" format="left|vcenter" size="12"></text>
+    </control>
+    <control type="slider" id="main.slider.time" mode="horizon">
+      <mode x="5" y="465" w="720" h="15">0</mode>
+      <mode geobase="center|bottom" x="-460" y="28" w="360" h="15">1</mode>
+      <track min="0" max="100" page="1" mleft="13" mtop="5" mright="13" mbottom="6">0</track>
+      <skins>
+        <skin type="btrack" drawmode="buttonface" x="0" y="0" w="full" h="4" tpcolor="255|0|255">./main/progressbar_bg_play.bmp</skin>
+        <skin type="track" drawmode="buttonface" x="0" y="0" w="full" h="4" tpcolor="255|0|255">./main/progressbar_gauge_play.bmp</skin>
+        <skin type="thumb" drawmode="stretch" x="0" y="0" w="15" h="15" tpcolor="255|0|255">./main/progressbar_control.bmp</skin>
+      </skins>
+    </control>
+    <control type="image" id="main.image.speed0">
+      <mode x="5" y="500" w="15" h="15">0</mode>
+      <mode geobase="left|bottom" x="20" y="45" w="15" h="15">1</mode>
+      <image tpcolor="255|0|255">./main/speed_sld_icon.bmp</image>
+    </control>
+    <control type="slider" id="main.slider.speed" mode="horizon">
+      <mode x="25" y="500" w="100" h="15">0</mode>
+      <mode geobase="left|bottom" x="45" y="45" w="100" h="15">1</mode>
+      <track min="1" max="9" page="1" mleft="10" mtop="5" mright="10" mbottom="6">5</track>
+      <skins>
+        <skin type="btrack" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main/progressbar_bg_play.bmp</skin>
+        <!--skin type="tics" drawmode="stretch" x="0" y="0" w="full" h="14" tpcolor="255|0|255">./main/progressbar_marking.bmp</skin-->
+        <skin type="track" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main/progressbar_bg_play.bmp</skin>
+        <skin type="thumb" x="0" y="0" w="15" h="15" tpcolor="255|0|255">./main/progressbar_control.bmp</skin>
+      </skins>
+    </control>
+    <control type="text" id="main.text.speed">
+      <mode geobase="left|top" x="125" y="498" w="30" h="15">0</mode>
+       <mode geobase="left|bottom" x="150" y="45" w="30" h="15">1</mode>
+      <text color="255|255|255|255" format="left|vcenter" size="10"></text>
+    </control>
+    <!--control type="image" id="main.image.speed1">
+      <mode x="227" y="511" w="15" h="16">0</mode>
+      <mode geobase="center|bottom" x="106" y="73" w="15" h="16">1</mode>
+      <image >./main/speed_+.bmp</image>
+    </control-->
+    <control type="image" id="main.image.bright">
+      <mode x="5" y="520" w="15" h="15">0</mode>
+      <mode geobase="left|bottom" x="20" y="25" w="15" h="15">1</mode>
+      <image tpcolor="255|0|255">./main/bright_sld_icon.bmp</image>
+    </control>
+    <control type="slider" id="main.slider.bright" mode="horizon">
+      <mode x="25" y="520" w="100" h="15">0</mode>
+      <mode geobase="left|bottom" x="45" y="25" w="100" h="15">1</mode>
+      <track min="-10" max="10" page="1" mleft="10" mtop="5" mright="10" mbottom="6">5</track>
+      <skins>
+        <skin type="btrack" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main/progressbar_bg_play.bmp</skin>
+        <skin type="track" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main/progressbar_bg_play.bmp</skin>
+        <skin type="thumb" x="0" y="0" w="15" h="15" tpcolor="255|0|255">./main/progressbar_control.bmp</skin>
+      </skins>
+    </control>
+    <control type="text" id="main.text.bright">
+      <mode geobase="left|top" x="125" y="518" w="30" h="15">0</mode>
+      <mode geobase="left|bottom" x="150" y="25" w="30" h="15">1</mode>
+      <text color="255|255|255|255" format="left|vcenter" size="10"></text>
+    </control>
+    <!--control type="button" id="main.button.volume" mode="check">
+      <mode x="524" y="510" w="20" h="19">0</mode>
+      <mode geobase="center|bottom" x="251" y="74" w="20" h="19">1</mode>
+      <skins>
+        <skin type="normal">./main/sound_icon.bmp</skin>
+        <skin type="pushed">./main/sound_icon.bmp</skin>
+        <skin type="disabled" color="96|255|255|255">./main/sound_icon.bmp</skin>
+        <skin type="hover">./main/sound_icon.bmp</skin>
+        <skin type="checked">./main/mute_icon.bmp</skin>
+        <skin type="pushed2">./main/mute_icon.bmp</skin>
+        <skin type="hover2">./main/mute_icon.bmp</skin>
+      </skins>
+    </control>    
+    <control type="slider" id="main.slider.volume" mode="horizon">
+      <mode x="548" y="512" w="92" h="15">0</mode>
+      <mode geobase="center|bottom" x="272" y="74" w="92" h="15">1</mode>
+      <track min="0" max="10" page="1" mleft="9" mtop="5" mright="9" mbottom="6">5</track>
+      <skins>
+        <skin type="btrack" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main/progressbar_bg.bmp</skin>
+        <skin type="track" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main/progressbar_gauge.bmp</skin>
+        <skin type="thumb" x="0" y="2" w="18" h="11" tpcolor="0|255|0">./main/control_bar.bmp</skin>
+      </skins>
+    </control-->
+    <control type="button" id="main.button.stop" mode="push">
+      <mode x="180" y="490" w="48" h="40">0</mode>
+      <mode geobase="center|bottom" x="-90" y="40" w="30" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_stop.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_stop.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="50" sh="40">./main/cont_stop.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_stop.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.prev" mode="push">
+      <mode x="234" y="490" w="48" h="40">0</mode>
+      <mode geobase="center|bottom" x="-60" y="40" w="30" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_prev.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_prev.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="50" sh="40">./main/cont_prev.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_prev.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.rew" mode="push">
+      <mode x="290" y="490" w="48" h="40">0</mode>
+      <mode geobase="center|bottom" x="-30" y="40" w="30" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_rew.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_rew.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="50" sh="40">./main/cont_rew.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_rew.bmp</skin>
+      </skins>
+    </control>
+     <control type="button" id="main.button.play" mode="check">
+      <mode x="342" y="490" w="48" h="40">0</mode>
+      <mode geobase="center|bottom" x="0" y="40" w="30" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_play.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_play.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="50" sh="40">./main/cont_play.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_play.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_pause.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_pause.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_pause.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.ff" mode="push">
+      <mode x="397" y="490" w="48" h="40">0</mode>
+      <mode geobase="center|bottom" x="30" y="40" w="30" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_ff.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_ff.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="50" sh="40">./main/cont_ff.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_ff.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.next" mode="push">
+      <mode x="452" y="490" w="48" h="40">0</mode>
+      <mode geobase="center|bottom" x="60" y="40" w="30" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_next.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_next.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="50" sh="40">./main/cont_next.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_next.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.fps" mode="push">
+      <mode x="507" y="490" w="48" h="40">0</mode>
+      <mode geobase="center|bottom" x="90" y="40" w="30" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="50" sh="40">./main/cont_fps.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="50" sy="0" sw="50" sh="40">./main/cont_fps.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="50" sh="40">./main/cont_fps.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="100" sy="0" sw="50" sh="40">./main/cont_fps.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.open_kor" mode="push">
+      <mode geobase="right|bottom" x="295" y="35" w="115" h="30">0</mode>
+      <mode geobase="right|bottom" x="300" y="40" w="120" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="105" sh="30">./main/cont_open_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="105" sy="0" sw="105" sh="30">./main/cont_open_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="105" sh="30">./main/cont_open_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="210" sy="0" sw="105" sh="30">./main/cont_open_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.open_eng" mode="push">
+      <mode geobase="right|bottom" x="295" y="35" w="115" h="30">0</mode>
+      <mode geobase="right|bottom" x="300" y="40" w="120" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="105" sh="30">./main/cont_open_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="105" sy="0" sw="105" sh="30">./main/cont_open_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="105" sh="30">./main/cont_open_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="210" sy="0" sw="105" sh="30">./main/cont_open_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.open_jpn" mode="push">
+      <mode geobase="right|bottom" x="295" y="35" w="115" h="30">0</mode>
+      <mode geobase="right|bottom" x="300" y="40" w="120" h="30">1</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="105" sh="30">./main/cont_open_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="105" sy="0" sw="105" sh="30">./main/cont_open_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="105" sh="30">./main/cont_open_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="210" sy="0" sw="105" sh="30">./main/cont_open_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.setting" mode="push">
+      <mode geobase="right|bottom" x="175" y="35" w="30" h="30">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="35" sh="35">./main/cont_setting.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="35" sy="0" sw="35" sh="35">./main/cont_setting.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="35" sh="35">./main/cont_setting.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="70" sy="0" sw="35" sh="35">./main/cont_setting.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.capture" mode="push">
+      <mode geobase="right|bottom" x="140" y="35" w="30" h="30">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="35" sh="35">./main/cont_capture.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="35" sy="0" sw="35" sh="35">./main/cont_capture.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="35" sh="35">./main/cont_capture.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="70" sy="0" sw="35" sh="35">./main/cont_capture.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.save" mode="push">
+      <mode geobase="right|bottom" x="105" y="35" w="30" h="30">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="35" sh="35">./main/cont_save.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="35" sy="0" sw="35" sh="35">./main/cont_save.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="35" sh="35">./main/cont_save.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="70" sy="0" sw="35" sh="35">./main/cont_save.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.log" mode="push">
+      <mode geobase="right|bottom" x="70" y="35" w="30" h="30">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="35" sh="35">./main/cont_log.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="35" sy="0" sw="35" sh="35">./main/cont_log.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="35" sh="35">./main/cont_log.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="70" sy="0" sw="35" sh="35">./main/cont_log.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.about" mode="push">
+      <mode geobase="right|bottom" x="35" y="35" w="30" h="30">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="35" sh="35">./main/cont_about.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="35" sy="0" sw="35" sh="35">./main/cont_about.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="35" sh="35">./main/cont_about.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="70" sy="0" sw="35" sh="35">./main/cont_about.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabnormal_kor" mode="check">
+      <mode geobase="right" x="294" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_normal_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_normal_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_normal_kor.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_kor.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_kor.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabnormal_eng" mode="check">
+      <mode geobase="right" x="294" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_normal_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_normal_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_normal_eng.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_eng.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_eng.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabnormal_jpn" mode="check">
+      <mode geobase="right" x="294" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_normal_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_normal_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_normal_jpn.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_jpn.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_jpn.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_normal_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabmotion_kor" mode="check">
+      <mode geobase="right" x="222" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_motion_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_motion_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_motion_kor.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_kor.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_kor.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabmotion_eng" mode="check">
+      <mode geobase="right" x="222" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_motion_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_motion_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_motion_eng.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_eng.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_eng.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabmotion_jpn" mode="check">
+      <mode geobase="right" x="222" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_motion_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_motion_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_motion_jpn.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_jpn.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_jpn.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_motion_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabevent_kor" mode="check">
+      <mode geobase="right" x="150" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_event_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_event_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_event_kor.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_kor.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_kor.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabevent_eng" mode="check">
+      <mode geobase="right" x="150" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_event_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_event_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_event_eng.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_eng.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_eng.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabevent_jpn" mode="check">
+      <mode geobase="right" x="150" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_event_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_event_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_event_jpn.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_jpn.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_jpn.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_event_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabmanual_kor" mode="check">
+      <mode geobase="right" x="78" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_manual_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_manual_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_manual_kor.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_kor.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_kor.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_kor.bmp</skin>
+      </skins>
+    </control> 
+    <control type="button" id="main.button.tabmanual_eng" mode="check">
+      <mode geobase="right" x="78" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_manual_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_manual_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_manual_eng.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_eng.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_eng.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="main.button.tabmanual_jpn" mode="check">
+      <mode geobase="right" x="78" y="466" w="72" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_manual_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="72" sh="21">./main/listtab_manual_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="72" sy="0" sw="72" sh="21">./main/listtab_manual_jpn.bmp</skin>
+        <skin type="checked" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_jpn.bmp</skin>
+        <skin type="pushed2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_jpn.bmp</skin>
+        <skin type="hover2" drawmode="stretch" tpcolor="255|0|255" sx="144" sy="0" sw="72" sh="21">./main/listtab_manual_jpn.bmp</skin>
+      </skins>
+    </control>    
+    <control type="list" id="main.listbox.filelist">
+      <mode x="728" y="490" w="290" h="200">0</mode>
+      <columns height="18" size="9" color="160|160|160" selcolor="121|189|239" format="left|vcenter|wordellipsis">
+        <!-- no column-->
+        <column index="0" width="60"/>
+        <!-- file column-->
+        <column index="1" width="140"/>
+        <!-- size column-->
+        <column index="2" width="60"/>
+        <!-- path(hidden) column-->
+        <column index="3" width="0"/>
+      </columns>
+    </control>
+    <!-- G-Sensor -->
+    <control type="gsensor" id="main.gsensor.graph">
+      <mode x="5" y="545" w="720" h="175">0</mode>
+      <bgimg color="255|0|0|0">./popup/popup_gsensor_bg.bmp</bgimg>
+      <unitx color="150|150|150">Time in seconds</unitx>
+      <unity color="150|150|150">G-Sensor</unity>
+      <line color="255|0|135">x</line>
+      <line color="135|255|0">y</line>
+      <line color="0|255|255">z</line>
+      <line color="135|135|255">s</line>
+      <line color="255|255|255" trackbarpos="30" scale="2">track</line>
+      <gradx color="35|35|35" lower="0" upper="60" decimalPlaces="2">x</gradx>
+      <grady color="35|35|35" lower="-1.5" upper="1.5" decimalPlaces="1" interval="0.5">y</grady>
+    </control>
+  </controls>
+</dialog>

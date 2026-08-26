@@ -1,0 +1,39 @@
+문제점:
+1)저번주 목요일에 주신 SD카드에서 10MByte 이하 파일을 재생 시 프로그램이 멈추는 문제가 발생합니다.
+
+수정 사항:
+1) 해상도 및 윈도우글자크기 상관없이 셋팅된 창 크기로 설치토록함(참고로 타회사 뷰어는 하위해상도에서 화면에서 다보이진않으나 깨지지않음)
+2) 저장시 1ch/2ch 나눠서 저장(2개파일), 반대로 avi파일 실행시 1ch/2ch 에서 동시 실행=>1개 밖에안됨
+3) 실행파일명 실행파일 시간으로 변경
+ 파일list는 기존대로 다시 적용
+4)최대화면에서 파일 앞뒤로 이동시 ‘Map’활성화안됨
+5)사고보고서에 Map 적용
+6)뷰어 체크박스 적용
+ 그리고 요청하신 "저장시 파일명으로 폴더 만들어서 저장"은 저장경로창에서 "새 폴더만들기"를 선택하여 저장하면 될 것 같습니다.
+7)파일list배경 (회색/검정색)부분 이상
+ 수정이 쉽지않아 블랙으로 처리
+8)Event 글자 빨강
+9)속도,밝기설명팝업추가
+ 볼륨은 문제가 생겨 추가가 안되네요. 볼륨 컨트롤시 다운되는 문제가 있어 기능을 막았습니다.
+10)Avic 녹화파일은 일단 재생되는 파일의 GSensor 정보만 맞추었습니다. 안되는 것은 코아로직에 의뢰를 해봐야 할 거 같습니다(CLStreamParseFilterV2.dll에서 채널 정보를 가져오지 못합니다)
+11)map 경로 표시
+
+
+NxFS 포맷 기능은 api로 있으나 사용법을 몰라 적용을 못하겠네요.
+아래 CL_NxFS_Format 함수 사용법을 성진이나 코아로직에 확인 부탁드립니다.
+Nxfs_api.h
+DLLEXPORT E_NxFS_RESULT_TYPE CL_NxFS_Format
+(	
+	sint8			   *mnaster_dev_name, 
+	sint8			   *sub_dev_name, 
+	E_NxFS_FILESYSTEM_TYPE file_system_type,
+	E_NxFS_FORMAT_TYPE	   format_type,
+	struct NxFS_DirTbl	   *dir_list,
+	void (*fptr_format_done_cb)(
+								E_NxFS_FILESYSTEM_TYPE file_system_type,
+								E_NxFS_FORMAT_TYPE	   format_type,
+								struct NxFS_DirTbl	   *dir_list,
+								E_NxFS_RESULT_TYPE	   *format_errno)
+);
+
+

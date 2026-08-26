@@ -1,0 +1,9 @@
+---- brightness Matches (8 in 3 files) ----
+ConfigTextFile.cpp (bbplayer):		sprintf((char*)szKey, "camera_ch%d:brightness", ch+1);
+Language.cpp (external\blackbox):/*TIP_BRIGHTNESS*/						{TEXT("tooltip:brightness")},
+Main_daview.XML (bin\script):        <skin type="btrack" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main3/progress_brightness,sound-1.png</skin>
+Main_daview.XML (bin\script):        <skin type="track" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main3/progress_brightness,sound-2.png</skin>
+Main_daview.XML (bin\script):        <skin type="btrack" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main3/progress_brightness,sound-1.png</skin>
+Main_daview.XML (bin\script):        <skin type="track" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main3/progress_brightness,sound-2.png</skin>
+Main_daview.XML (bin\script):        <skin type="btrack" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main3/progress_brightness,sound-1.png</skin>
+Main_daview.XML (bin\script):        <skin type="track" drawmode="buttonface" x="0" y="5" w="full" h="4" tpcolor="255|0|255">./main3/progress_brightness,sound-2.png</skin>

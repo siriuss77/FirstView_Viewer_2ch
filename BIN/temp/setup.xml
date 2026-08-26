@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<setup>
+	<item id="Name" value="DA210" />
+	<item id="FWVersion" value="NxFS_V1.1.0" />
+	<item id="GSensorSensi" value="2" />
+	<item id="GMT" value="+9" />
+	<item id="AudioRecEnable" value="TRUE" />
+	<item id="SpeakerVol" value="5" />
+	<item id="VideoQuality" value="LOW" /> <!-- LOW, MIDDLE, HIGH -->
+	<item id="EventMode" value="B" /> <!-- A, B, C -->
+	<item id="CarBatVoltage" value="12V" /> <!-- 12V, 24V -->
+	<item id="CarBatVoltCalib" value="+0" />
+	<item id="CarBatSafeEnable" value="TRUE" />
+	<item id="CarBatSafeVoltage" value="118" />
+	<item id="OSDSpeed" value="0" />
+	<item id="PulseReset" value="FALSE" />
+	<item id="BRAKE" value="0" />
+	<item id="BLINK" value="2" />
+	<item id="INPUT1" value="0" />
+	<item id="INPUT2" value="0" />
+	<item id="FactoryReset" value="FALSE" />
+</setup>

@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BBPlayer", "BBPlayer\BBPlayer.vcproj", "{0BB45C1B-2641-4070-A953-5300F0AE2C29}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83BD5FD5-EF7F-4D8F-BEED-5DB13428999B} = {83BD5FD5-EF7F-4D8F-BEED-5DB13428999B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyXML", "EXTERNAL\TinyXML\TinyXML.vcproj", "{83BD5FD5-EF7F-4D8F-BEED-5DB13428999B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CludePacker", "CludePacker\CludePacker.vcproj", "{ED2EA8CF-D92D-4283-8070-69912F6B5449}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConfigWriter", "ConfigWriter\ConfigWriter.vcproj", "{9C193854-22DB-480F-A1D6-7324E11F0DFB}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "INSTALLER_Firstview_VRHD_jpn", "INSTALLER\INSTALLER_Firstview_VRHD_jpn.vdproj", "{316258AD-62D7-4CC1-BC55-63EC4520F1EE}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "INSTALLER_Firstview_VRHD_jpn_keio", "INSTALLER\INSTALLER_Firstview_VRHD_jpn_keio.vdproj", "{A201603A-E0CC-4000-925B-6D82575FC42D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "INSTALLER_Firstview_V2HD_jpn", "INSTALLER\INSTALLER_Firstview_V2HD_jpn.vdproj", "{02C0AA4F-0F29-45CB-8A1D-48C0896B70C6}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "INSTALLER_Firstview_V2HD_jpn_patch", "INSTALLER\INSTALLER_Firstview_V2HD_jpn_patch.vdproj", "{72E3EB26-FFE9-4F11-B582-E13F7BD49D7B}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "INSTALLER_Firstview_V2HD_jpn_TEPCO", "INSTALLER\INSTALLER_Firstview_V2HD_jpn_TEPCO.vdproj", "{FB1B194C-25CB-47CD-8F37-0813DB444FE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Installer_Daview|Win32 = Installer_Daview|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BB45C1B-2641-4070-A953-5300F0AE2C29}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0BB45C1B-2641-4070-A953-5300F0AE2C29}.Debug|Win32.Build.0 = Debug|Win32
+		{0BB45C1B-2641-4070-A953-5300F0AE2C29}.Installer_Daview|Win32.ActiveCfg = Release|Win32
+		{0BB45C1B-2641-4070-A953-5300F0AE2C29}.Installer_Daview|Win32.Build.0 = Release|Win32
+		{0BB45C1B-2641-4070-A953-5300F0AE2C29}.Release|Win32.ActiveCfg = Release|Win32
+		{0BB45C1B-2641-4070-A953-5300F0AE2C29}.Release|Win32.Build.0 = Release|Win32
+		{83BD5FD5-EF7F-4D8F-BEED-5DB13428999B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{83BD5FD5-EF7F-4D8F-BEED-5DB13428999B}.Installer_Daview|Win32.ActiveCfg = Release|Win32
+		{83BD5FD5-EF7F-4D8F-BEED-5DB13428999B}.Installer_Daview|Win32.Build.0 = Release|Win32
+		{83BD5FD5-EF7F-4D8F-BEED-5DB13428999B}.Release|Win32.ActiveCfg = Release|Win32
+		{83BD5FD5-EF7F-4D8F-BEED-5DB13428999B}.Release|Win32.Build.0 = Release|Win32
+		{ED2EA8CF-D92D-4283-8070-69912F6B5449}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ED2EA8CF-D92D-4283-8070-69912F6B5449}.Debug|Win32.Build.0 = Debug|Win32
+		{ED2EA8CF-D92D-4283-8070-69912F6B5449}.Installer_Daview|Win32.ActiveCfg = Release|Win32
+		{ED2EA8CF-D92D-4283-8070-69912F6B5449}.Installer_Daview|Win32.Build.0 = Release|Win32
+		{ED2EA8CF-D92D-4283-8070-69912F6B5449}.Release|Win32.ActiveCfg = Release|Win32
+		{ED2EA8CF-D92D-4283-8070-69912F6B5449}.Release|Win32.Build.0 = Release|Win32
+		{9C193854-22DB-480F-A1D6-7324E11F0DFB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9C193854-22DB-480F-A1D6-7324E11F0DFB}.Installer_Daview|Win32.ActiveCfg = Release|Win32
+		{9C193854-22DB-480F-A1D6-7324E11F0DFB}.Installer_Daview|Win32.Build.0 = Release|Win32
+		{9C193854-22DB-480F-A1D6-7324E11F0DFB}.Release|Win32.ActiveCfg = Release|Win32
+		{9C193854-22DB-480F-A1D6-7324E11F0DFB}.Release|Win32.Build.0 = Release|Win32
+		{316258AD-62D7-4CC1-BC55-63EC4520F1EE}.Debug|Win32.ActiveCfg = Debug
+		{316258AD-62D7-4CC1-BC55-63EC4520F1EE}.Installer_Daview|Win32.ActiveCfg = Release
+		{316258AD-62D7-4CC1-BC55-63EC4520F1EE}.Installer_Daview|Win32.Build.0 = Release
+		{316258AD-62D7-4CC1-BC55-63EC4520F1EE}.Release|Win32.ActiveCfg = Release
+		{A201603A-E0CC-4000-925B-6D82575FC42D}.Debug|Win32.ActiveCfg = Debug
+		{A201603A-E0CC-4000-925B-6D82575FC42D}.Debug|Win32.Build.0 = Debug
+		{A201603A-E0CC-4000-925B-6D82575FC42D}.Installer_Daview|Win32.ActiveCfg = Release
+		{A201603A-E0CC-4000-925B-6D82575FC42D}.Installer_Daview|Win32.Build.0 = Release
+		{A201603A-E0CC-4000-925B-6D82575FC42D}.Release|Win32.ActiveCfg = Release
+		{02C0AA4F-0F29-45CB-8A1D-48C0896B70C6}.Debug|Win32.ActiveCfg = Debug
+		{02C0AA4F-0F29-45CB-8A1D-48C0896B70C6}.Debug|Win32.Build.0 = Debug
+		{02C0AA4F-0F29-45CB-8A1D-48C0896B70C6}.Installer_Daview|Win32.ActiveCfg = Release
+		{02C0AA4F-0F29-45CB-8A1D-48C0896B70C6}.Installer_Daview|Win32.Build.0 = Release
+		{02C0AA4F-0F29-45CB-8A1D-48C0896B70C6}.Release|Win32.ActiveCfg = Release
+		{72E3EB26-FFE9-4F11-B582-E13F7BD49D7B}.Debug|Win32.ActiveCfg = Debug
+		{72E3EB26-FFE9-4F11-B582-E13F7BD49D7B}.Debug|Win32.Build.0 = Debug
+		{72E3EB26-FFE9-4F11-B582-E13F7BD49D7B}.Installer_Daview|Win32.ActiveCfg = Release
+		{72E3EB26-FFE9-4F11-B582-E13F7BD49D7B}.Installer_Daview|Win32.Build.0 = Release
+		{72E3EB26-FFE9-4F11-B582-E13F7BD49D7B}.Release|Win32.ActiveCfg = Release
+		{FB1B194C-25CB-47CD-8F37-0813DB444FE8}.Debug|Win32.ActiveCfg = Debug
+		{FB1B194C-25CB-47CD-8F37-0813DB444FE8}.Debug|Win32.Build.0 = Debug
+		{FB1B194C-25CB-47CD-8F37-0813DB444FE8}.Installer_Daview|Win32.ActiveCfg = Release
+		{FB1B194C-25CB-47CD-8F37-0813DB444FE8}.Installer_Daview|Win32.Build.0 = Release
+		{FB1B194C-25CB-47CD-8F37-0813DB444FE8}.Release|Win32.ActiveCfg = Release
+		{FB1B194C-25CB-47CD-8F37-0813DB444FE8}.Release|Win32.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

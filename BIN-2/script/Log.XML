@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+  <property>
+    <geometry x="-1" y="-1" w="498" h="728"/>
+    <bgimgs>
+      <bgimg mode="0">
+        <image drawmode="buttonface">./popup/log_bg.bmp</image>
+      </bgimg>
+    </bgimgs>
+  </property>
+  <controls>
+  <control type="text" id="log.text.title">
+      <mode x="10" y="5" w="390" h="25">0</mode>
+      <text color="255|255|155|0" format="left|vcenter|bold" size="10">System Log Lists</text>
+    </control>
+   <control type="button" id="log.button.ok" mode="push">
+      <mode geobase="right|top" x="30" y="1" w="28" h="28">0</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./popup/exit_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./popup/exit_press.bmp</skin>
+        <skin type="disabled" color="96|255|255|255" tpcolor="255|0|255">./popup/exit_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./popup/exit_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="list" id="log.listbox.loglist">
+      <mode geobase="left|top|wmargin|hmargin" x="12" y="43" w="24" h="86">0</mode>
+      <columns height="15" size="9" color="160|160|160" selcolor="121|189|239" format="left|vcenter|wordellipsis">
+        <!-- no column-->
+        <column index="0" width="40"/>
+        <!-- date column-->
+        <column index="1" width="130"/>
+        <!-- log type column-->
+        <column index="2" width="110"/>
+        <!-- log text column-->
+        <column index="3" width="170"/>
+      </columns>
+    </control>
+    <control type="button" id="log.button.save_kor">
+      <mode geobase="left|bottom" x="50" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/log_save_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="log.button.save_eng">
+      <mode geobase="left|bottom" x="50" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/log_save_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="log.button.save_jpn">
+      <mode geobase="left|bottom" x="50" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/log_save_jpn.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/log_save_jpn.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="log.button.cancel_kor">
+      <mode geobase="left|bottom" x="350" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_kor.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="log.button.cancel_eng">
+      <mode geobase="left|bottom" x="350" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+      </skins>
+    </control>
+    <control type="button" id="log.button.cancel_jpn">
+      <mode geobase="left|bottom" x="350" y="35" w="104" h="24">0</mode>
+      <skins>
+        <skin type="normal" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="pushed" drawmode="stretch" tpcolor="255|0|255" sx="104" sy="0" sw="104" sh="24">./popup/cancel_eng.bmp</skin>
+        <skin type="disabled" drawmode="stretch" tpcolor="255|0|255" color="96|255|255|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+        <skin type="hover" drawmode="stretch" tpcolor="255|0|255" sx="0" sy="0" sw="104" sh="24">./popup/cancel_jpn.bmp</skin>
+      </skins>
+    </control>
+  </controls>
+</dialog>

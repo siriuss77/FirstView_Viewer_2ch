@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+  <property>
+  	<geometry x="-1" y="-1" w="521" h="255"/>
+    <bgimgs>
+      <bgimg mode="0">
+        <image drawmode="buttonface">./popup/popup_bg.bmp</image>
+      </bgimg>
+    </bgimgs>
+  </property>
+  <controls>
+    <control type="button" id="gsensor.button.exit" mode="push">
+      <mode geobase="right|top" x="30" y="4" w="22" h="22">0</mode>
+      <skins>
+        <skin type="normal" tpcolor="255|0|255">./main/exit_nor.bmp</skin>
+        <skin type="pushed" tpcolor="255|0|255">./main/exit_press.bmp</skin>
+        <skin type="disabled" color="64|255|255|255" tpcolor="255|0|255">./main/exit_nor.bmp</skin>
+        <skin type="hover" tpcolor="255|0|255">./main/exit_over.bmp</skin>
+      </skins>
+    </control>
+    <control type="text" id="gsensor.text.title">
+      <mode x="110" y="0" w="300" h="25">0</mode>
+      <text font="gulim" color="255|255|155|0" format="center|vcenter|bold" size="10">G-Sensor Graph</text>
+    </control>
+    <control type="gsensor" id="gsensor.graph">
+      <mode x="0" y="30" w="521" h="225">0</mode>
+      <bgimg>./popup/popup_gsensor_bg.bmp</bgimg>
+      <line color="255|0|0" thick="1">x</line>
+      <line color="0|255|0" thick="1">y</line>
+      <line color="0|0|255" thick="1">z</line>
+      <line color="255|255|255" thick="1" startpos="45" endpos="505" top="30" heigh="160">time</line>
+    </control>
+  </controls>
+</dialog>

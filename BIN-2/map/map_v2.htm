@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<TITLE>Google Maps</TITLE>
+ <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA8VwDXloLB5E29brFsQYg2hS6wbWsfJTXG1xNhukn0u-g8prntBTYr7u2RrjkuI4QfAB0szB6NtTF0g" LANGUAGE="JavaScript"></script>
+ <script LANGUAGE="JavaScript">
+    var mapObj;
+    var Point = new GLatLng(37.482866,127.036647);
+
+    var cnt = 1;
+    var regFlag = false;
+    var polylinesCnt = 0;
+    var polylines = new Array();
+    var Tracker = createTracker(Point);
+
+    function createTracker(pos) 
+    {
+        var vicon = new GIcon();  
+        vicon.image = "http://labs.google.com/ridefinder/images/mm_20_brown.png";  
+        vicon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";  
+        vicon.iconSize = new GSize(12, 20);  
+        vicon.shadowSize = new GSize(22, 20);  
+        vicon.iconAnchor = new GPoint(6, 20);  
+        vicon.infoWindowAnchor = new GPoint(5, 1);  
+
+      var marker = new GMarker(pos, {icon:vicon, clickable: false});
+
+      return marker;
+      }
+
+    function load()
+    {
+        if (GBrowserIsCompatible()) {
+            mapObj = new GMap2(document.getElementById("mapContainer"));
+            mapObj.setCenter(new GLatLng(37.482866, 127.036647), 17);
+
+            mapObj.setUIToDefault();
+	     mapObj.setMapType(G_HYBRID_MAP);
+            mapObj.addOverlay(Tracker);
+
+            GEvent.addListener(mapObj, "click", function(overlay, pos) 
+                {
+                    Tracker.hide();
+                    Tracker.setLatLng(pos);
+                    Tracker.show();
+                }
+            );
+        }
+    }
+    
+    function createMarker(pos, count, content) {
+        var marker = new GMarker(pos, { clickable: false });
+        GEvent.addListener(marker, "mouseover", function(pos) {
+            mapObj.openInfoWindowHtml(pos, '<div style="width:100px; height:50px; background-color:#ffffff; border:solid 1px #666666;">' + content + '</div>');
+        });
+        GEvent.addListener(marker, "mouseout", function() {
+            mapObj.closeInfoWindow();
+        });
+
+        return marker;
+    }
+
+    function marking(lat, lng, str) {
+    }
+
+    function resizeMap(width, height) {
+        document.getElementById('mapContainer').style.width = width;
+        document.getElementById('mapContainer').style.height = height;
+    }
+
+    function drawPoly() {
+        var i = 0;
+
+        polylines[polylinesCnt] = new GPolyline(null, '#ff0000', 4, 0.5, { clickable: false });
+
+        mapObj.addOverlay(polylines[polylinesCnt]);
+        while (i < arguments.length) {
+            polylines[polylinesCnt].insertVertex(i / 2, new GLatLng(arguments[i], arguments[i + 1]));
+            i += 2;
+        }
+
+        polylinesCnt++;
+    }
+
+    function ResetData() {
+        while (polylines.length != 0) {
+            delete polylines[polylines.length - 1];
+            polylines.pop();
+        }
+        mapObj.clearOverlays();
+
+        Tracker = createTracker(Point);
+        mapObj.addOverlay(Tracker);
+        //     Tracker.hide();
+        polylinesCnt = 0;
+    }
+
+    function DrawCurrent(x, y) {
+        Point = new GLatLng(y, x);
+        Tracker.hide();
+        Tracker.setLatLng(Point);
+        Tracker.show();
+
+        mapObj.setCenter(Point, null);
+    }
+
+    function cli(x, y) {
+        Point = new GLatLng(y, x);
+        polylines.insertVertex(1, Point);
+    }
+
+ </script>
+</HEAD>
+<BODY style="border:0; overflow:hidden;" scroll=no topmargin=0 leftmargin=0 onload="javascript:load()" onunload="GUnload()">
+ <div id="mapContainer" style ="width:100%;height:100%"></div>
+</BODY>
+</HTML>
