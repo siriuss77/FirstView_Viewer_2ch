@@ -1606,7 +1606,17 @@ bool CWBCFileManager::fileMerge(CString strDestPath, bool is_Nxfs)
 			else if (dwBaseFps != 0 && dwCurFps != 0 && abs((int)dwBaseFps - (int)dwCurFps) >= 2) {
 				// FPS 불일치 감지 (예: 15fps vs 30fps) -> 다국어 안내 팝업 출력 후 안전하게 중단
 #if (BUILD_LANGUAGE == LANGUAGE_JAPANESE)
-				AfxMessageBox(_T("選?されたファイルの中にフレ?ムレ?トが異なるファイルが含まれています。同じ??モ?ドのファイルを選?してください。"), MB_ICONWARNING);
+				// jun 260827 CP949 소스 환경에서 일본어 한자/가나(? 깨짐) 방지를 위한 유니코드 안전 배열 정의
+				// 문구: 選?されたファイルの中にフレ?ムレ?トが異なるファイルが含まれています。同じ??モ?ドのファイルを選?してください。
+				static const wchar_t szMsgJap[] = {
+					0x9078, 0x629E, 0x3055, 0x308C, 0x305F, 0x30D5, 0x30A1, 0x30A4, 0x30EB, 0x306E, 
+					0x4E2D, 0x306B, 0x30D5, 0x30EC, 0x30FC, 0x30E0, 0x30EC, 0x30FC, 0x30C8, 0x304C, 
+					0x7570, 0x306A, 0x308B, 0x30D5, 0x30A1, 0x30A4, 0x30EB, 0x304C, 0x542B, 0x307E, 
+					0x308C, 0x3066, 0x3044, 0x307E, 0x3059, 0x3002, 0x540C, 0x3058, 0x9332, 0x753B, 
+					0x30E2, 0x30FC, 0x30C9, 0x306E, 0x30D5, 0x30A1, 0x30A4, 0x30EB, 0x3092, 0x9078, 
+					0x629E, 0x3057, 0x3066, 0x304F, 0x3060, 0x3055, 0x3044, 0x3002, 0x0000
+				};
+				::AfxMessageBox(szMsgJap, MB_ICONWARNING);
 #elif (BUILD_LANGUAGE == LANGUAGE_KOREAN)
 				AfxMessageBox(_T("선택된 파일 중 프레임 레이트가 다른 파일이 포함되어 있습니다. 동일한 녹화 모드의 파일을 선택해 주세요."), MB_ICONWARNING);
 #else
